@@ -1,0 +1,86 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "mode"
+
+    productFlavors {
+        staging {
+            buildConfigField "String", "SERVER_URL", '"http://string-api.vinova.sg/api/"'
+        }
+        prod {
+            buildConfigField "String", "SERVER_URL", '"http://string-api.vinova.sg/api/"'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+//    compileOnly 'com.google.android.things:androidthings:1.0'
+
+    //retrofit and logging
+    api deps.retrofit.runtime
+    api deps.retrofit.gson
+    api deps.okhttp_logging_interceptor
+
+    // koin
+    api deps.koin.scope
+    api deps.koin.viewmodel
+
+    //  lifecycle
+    api deps.lifecycle.viewmodel_ktx
+
+    // coroutine
+    api deps.coroutine.core
+    api deps.coroutine.android
+
+    // room
+    api deps.room.ktx
+    kapt deps.room.compiler
+
+    //paging
+    api deps.paging_ktx
+
+    //stetho
+    api deps.stetho.common
+    api deps.stetho.okhttp
+}

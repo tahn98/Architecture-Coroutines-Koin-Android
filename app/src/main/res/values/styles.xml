@@ -1,0 +1,14 @@
+<resources>
+
+    <!-- Base application theme. -->
+<!--    <style name="AppTheme" parent="android:Theme.Material.Light.DarkActionBar" />-->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorControlActivated">#000000</item>
+        <item name="colorControlHighlight">#000000</item>
+    </style>
+
+    <style name="style">
+        <item name="colorAccent">#000000</item>
+    </style>
+
+</resources>

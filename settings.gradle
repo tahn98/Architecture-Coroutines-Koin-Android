@@ -1,0 +1,3 @@
+rootProject.name='Code Base'
+include ':app'
+include ':core'
