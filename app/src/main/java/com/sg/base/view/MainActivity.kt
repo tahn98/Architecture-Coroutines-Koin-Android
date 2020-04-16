@@ -2,19 +2,18 @@ package com.sg.base.view
 
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.sg.core.CoreApplication
-import com.sg.core.param.LoginParam
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.sg.base.R
 import com.sg.base.adapter.MessagePagedAdapter
 import com.sg.base.base.BaseActivity
 import com.sg.base.base.LoadStateAdapter
 import com.sg.base.databinding.ActivityMainBinding
 import com.sg.base.viewmodel.AuthViewModel
-import com.sg.core.model.Message
+import com.sg.core.CoreApplication
 import com.sg.core.model.Result
+import com.sg.core.param.LoginParam
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -36,8 +35,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private val authViewModel: AuthViewModel by viewModel()
 
     private var adapter: MessagePagedAdapter? = null
-    private var loadStateAdapter : LoadStateAdapter? = null
-    private var mergeAdapter : MergeAdapter? = null
+    private var loadStateAdapter: LoadStateAdapter? = null
+    private var mergeAdapter: MergeAdapter? = null
 
 
     override val layoutId: Int
@@ -48,10 +47,30 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         loadStateAdapter = LoadStateAdapter()
         mergeAdapter = MergeAdapter(adapter, loadStateAdapter)
 
-        viewBinding.rvMessage.layoutManager =
-            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+//        viewBinding.rvMessage.layoutManager =
+//            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        val gridLayoutManager = GridLayoutManager(this, 2)
+        viewBinding.rvMessage.layoutManager = gridLayoutManager
         viewBinding.rvMessage.adapter = mergeAdapter
-        authViewModel.login(LoginParam("jason@vinova.sg", "123123", "dGKlJJU1lCc:APA91bGZTz25rKtcb5WobysyPQSUp0Bfp4w1hblFjgWQeGdCEZwgFmRTCTQX9vhDk2WazWcvwpOHn8MV4NyTjrgE5vFEraxP5GbAMOnqYmo6FyVGy924yS98pEYSJXBJZ_5g_56nIFuC"))
+        gridLayoutManager.spanSizeLookup = object :
+            GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return when {
+                    (gridLayoutManager.itemCount - 1 == position) && loadStateAdapter?.loadState == Result.LoadingMore -> {
+                        return gridLayoutManager.spanCount
+                    }
+                    else -> 1
+                }
+            }
+        }
+
+        authViewModel.login(
+            LoginParam(
+                "jason@vinova.sg",
+                "123123",
+                "dGKlJJU1lCc:APA91bGZTz25rKtcb5WobysyPQSUp0Bfp4w1hblFjgWQeGdCEZwgFmRTCTQX9vhDk2WazWcvwpOHn8MV4NyTjrgE5vFEraxP5GbAMOnqYmo6FyVGy924yS98pEYSJXBJZ_5g_56nIFuC"
+            )
+        )
     }
 
     override fun bindViewModel() {
@@ -64,7 +83,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         })
 
         authViewModel.loadStateLiveData.observe(this, Observer {
-            loadStateAdapter?.setLoadState(it)
+            loadStateAdapter?.loadState = it
         })
 
         authViewModel.messagesLiveData.observe(this, Observer {

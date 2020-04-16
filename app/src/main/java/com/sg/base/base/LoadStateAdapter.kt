@@ -13,23 +13,22 @@ import com.sg.core.vo.ItemViewModel
 class LoadStateAdapter(private val retry: (() -> Unit)? = null) :
     RecyclerView.Adapter<LoadStateAdapter.LoadStateViewHolder>() {
 
-    private var loadState: Result<*>? = null
-
-    fun setLoadState(loadState: Result<*>) {
-        if (this.loadState != loadState) {
-            val displayOldItem = displayLoadStateAsItem(this.loadState)
-            val displayNewItem = displayLoadStateAsItem(loadState)
-
-            if (displayOldItem && !displayNewItem) {
-                notifyItemRemoved(0)
-            } else if (displayNewItem && !displayOldItem) {
-                notifyItemInserted(0)
-            } else if (displayOldItem && displayNewItem) {
-                notifyItemChanged(0)
+    var loadState: Result<*>? = null
+        get() = field
+        set(value) {
+            if (field != value) {
+                val displayOldItem = displayLoadStateAsItem(field)
+                val displayNewItem = displayLoadStateAsItem(value)
+                if (displayOldItem && !displayNewItem) {
+                    notifyItemRemoved(0)
+                } else if (displayNewItem && !displayOldItem) {
+                    notifyItemInserted(0)
+                } else if (displayOldItem && displayNewItem) {
+                    notifyItemChanged(0)
+                }
+                field = value
             }
-            this.loadState = loadState
         }
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoadStateViewHolder {
         val itemBinding = DataBindingUtil.inflate<ItemLoadStateBinding>(
