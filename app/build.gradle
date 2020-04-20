@@ -20,8 +20,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
     dataBinding {
@@ -87,6 +91,8 @@ dependencies {
     implementation deps.koin.scope
     implementation deps.koin.viewmodel
     implementation deps.koin.ext
+
+    implementation("io.coil-kt:coil:0.9.5")
 
     //glide
 //    implementation deps.glide.runtime

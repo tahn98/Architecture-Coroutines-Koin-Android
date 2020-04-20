@@ -1,10 +1,12 @@
 package com.sg.base.view
 
+import android.app.Activity
+import android.content.Intent
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import coil.api.load
 import com.sg.base.R
 import com.sg.base.adapter.MessagePagedAdapter
 import com.sg.base.base.BaseActivity
@@ -15,6 +17,8 @@ import com.sg.core.CoreApplication
 import com.sg.core.model.Result
 import com.sg.core.param.LoginParam
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
+
 
 /**
  * Skeleton of an Android Things activity.
@@ -71,6 +75,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 "dGKlJJU1lCc:APA91bGZTz25rKtcb5WobysyPQSUp0Bfp4w1hblFjgWQeGdCEZwgFmRTCTQX9vhDk2WazWcvwpOHn8MV4NyTjrgE5vFEraxP5GbAMOnqYmo6FyVGy924yS98pEYSJXBJZ_5g_56nIFuC"
             )
         )
+
+//        viewBinding.ivImageView.load("https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.0-9/s960x960/83503315_2532361526892826_6398406891898142720_o.jpg?_nc_cat=109&_nc_sid=110474&_nc_ohc=fM8c1-ZvmgYAX8BWKT-&_nc_ht=scontent.fsgn2-4.fna&_nc_tp=7&oh=a0ded138018389a32568ddda8f350c0d&oe=5EC3FE42")
+        viewBinding.ivImageView.load(R.drawable.image)
+        viewBinding.ivImageView.setOnClickListener {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), 999)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 999 && resultCode == Activity.RESULT_OK) {
+            viewBinding.ivImageView.load(data?.data?.path.toString())
+        }
     }
 
     override fun bindViewModel() {
