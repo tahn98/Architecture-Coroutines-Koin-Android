@@ -106,7 +106,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             Toast.makeText(this, it.email, Toast.LENGTH_SHORT).show()
             authViewModel.messagePaging()
 
-            DatabaseUtil().exportDB(this)
+            DatabaseUtil().exportDB(this, "User")
 //            authViewModel.messagePagingDB()
         })
 
