@@ -66,7 +66,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return when {
-                    (gridLayoutManager.itemCount - 1 == position) && loadStateAdapter?.loadState == Result.LoadingMore -> {
+                    loadStateAdapter?.loadState is Result.Error -> return gridLayoutManager.spanCount
+
+                    ((gridLayoutManager.itemCount - 1 == position) && loadStateAdapter?.loadState is Result.LoadingMore) -> {
                         return gridLayoutManager.spanCount
                     }
                     else -> 1
