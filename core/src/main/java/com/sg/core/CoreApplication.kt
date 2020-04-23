@@ -1,6 +1,7 @@
 package com.sg.core
 
 import android.app.Application
+import com.sg.core.data.local.AppDatabase
 import com.sg.core.di.localModule
 import com.sg.core.di.remoteModule
 import com.sg.core.di.repositoryModule
@@ -14,6 +15,8 @@ import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 
 open class CoreApplication : Application() {
+
+    val db : AppDatabase by inject()
 
     companion object {
         lateinit var instance: CoreApplication

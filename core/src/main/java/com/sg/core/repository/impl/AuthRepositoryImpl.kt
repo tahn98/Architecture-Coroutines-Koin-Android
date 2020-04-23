@@ -26,9 +26,9 @@ class AuthRepositoryImpl(val api: ApiService, val userDao: UserDao, val messageD
 
             override fun processResponse(response: ObjectResponse<User>): User? = response.data
 
-//            override suspend fun saveCallResult(item: User?) {
-////                userDao.insert(item)
-//            }
+            override suspend fun saveCallResult(item: User?) {
+                userDao.insert(item)
+            }
 
         }.build().asLiveData()
     }

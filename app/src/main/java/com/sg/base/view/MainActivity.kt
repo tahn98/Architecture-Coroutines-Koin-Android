@@ -12,13 +12,14 @@ import com.sg.base.adapter.MessagePagedAdapter
 import com.sg.base.base.BaseActivity
 import com.sg.base.base.LoadStateAdapter
 import com.sg.base.databinding.ActivityMainBinding
+import com.sg.base.ext.hasReadStoragePermission
+import com.sg.base.ext.requestReadAndWriteStoragePermission
 import com.sg.base.viewmodel.AuthViewModel
 import com.sg.core.CoreApplication
 import com.sg.core.model.Result
 import com.sg.core.param.LoginParam
+import com.sg.core.util.DatabaseUtil
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.io.File
-
 
 /**
  * Skeleton of an Android Things activity.
@@ -47,6 +48,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         get() = R.layout.activity_main
 
     override fun bindView() {
+
+        if (!hasReadStoragePermission()) {
+            requestReadAndWriteStoragePermission(999)
+        }
+
         adapter = MessagePagedAdapter()
         loadStateAdapter = LoadStateAdapter()
         mergeAdapter = MergeAdapter(adapter, loadStateAdapter)
@@ -99,6 +105,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             viewBinding.data = it
             Toast.makeText(this, it.email, Toast.LENGTH_SHORT).show()
             authViewModel.messagePaging()
+
+            DatabaseUtil().exportDB(this)
 //            authViewModel.messagePagingDB()
         })
 

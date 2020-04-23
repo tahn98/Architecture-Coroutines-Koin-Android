@@ -1,6 +1,7 @@
 package com.sg.base.ext
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -26,15 +27,15 @@ fun Context.hasAudioPermission(): Boolean {
     )
 }
 
-//fun Fragment.requestReadAndWriteStoragePermission(requestCode: Int) {
-//    EasyPermissions.requestPermissions(
-//        this,
-//        this.getString(R.string.read_storage_permission),
-//        requestCode,
-//        Manifest.permission.READ_EXTERNAL_STORAGE,
-//        Manifest.permission.WRITE_EXTERNAL_STORAGE
-//    )
-//}
+fun Activity.requestReadAndWriteStoragePermission(requestCode: Int) {
+    EasyPermissions.requestPermissions(
+        this,
+        "Read and write external storage permission is required to carry out this feature",
+        requestCode,
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    )
+}
 //
 //fun Fragment.requestCameraPermission(requestCode: Int) {
 //    EasyPermissions.requestPermissions(

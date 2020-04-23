@@ -14,9 +14,10 @@ data class User(
     @PrimaryKey
     var id : Int = 0,
     var email: String? = "",
+    var access_token : String? = "",
+    var profilePhoto: String? = "",
     @TypeConverters(TokenConverter::class)
-    var token: Token? = Token(),
-    var access_token : String? = ""
+    var token: Token? = Token()
 ) : Parcelable
 
 @Parcelize

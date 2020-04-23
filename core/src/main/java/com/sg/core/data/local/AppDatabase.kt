@@ -18,7 +18,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         const val DB_VERSION = 1
-        private const val DB_NAME = "Covid.DB"
+        const val DB_NAME = "Covid.DB"
 
         @Volatile
         private var INSTANCE: AppDatabase? = null
