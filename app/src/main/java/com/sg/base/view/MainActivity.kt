@@ -92,6 +92,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             intent.action = Intent.ACTION_GET_CONTENT
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), 999)
         }
+
+        viewBinding.btnLogin.setOnClickListener {
+            authViewModel.login(
+                LoginParam(
+                    "jason@vinova.sg",
+                    "123123",
+                    "dGKlJJU1lCc:APA91bGZTz25rKtcb5WobysyPQSUp0Bfp4w1hblFjgWQeGdCEZwgFmRTCTQX9vhDk2WazWcvwpOHn8MV4NyTjrgE5vFEraxP5GbAMOnqYmo6FyVGy924yS98pEYSJXBJZ_5g_56nIFuC"
+                )
+            )
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

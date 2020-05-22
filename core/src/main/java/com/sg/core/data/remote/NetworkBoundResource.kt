@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import com.sg.core.model.Result
+import kotlinx.coroutines.flow.*
 
 abstract class NetworkBoundResource<RequestType, ResultType>
 constructor(private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
@@ -56,39 +57,38 @@ constructor(private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
     private suspend fun fetchFromNetwork() {
         Log.i(TAG, "Fetch data from network")
 
-        val apiResponse = createCall()
+        createCall().collect { apiResponse ->
+            Log.i(TAG, "Data fetched from network")
+            if (apiResponse.isSuccessful) {
+                val body = apiResponse.body()
+                when (apiResponse.code()) {
+                    // 204 for delete brand story
+                    200, 201, 204 -> {
+                        body?.let {
+                            val message = ""
+                            if (it == null) {
+                                setValue(Result.Success(it, message))
+                            } else {
+                                saveCallResult(processResponse(it))
+                                val result = loadFromDb() ?: processResponse(it)
+                                setValue(Result.Success(result))
+                            }
 
-        Log.i(TAG, "Data fetched from network")
-
-        if (apiResponse.isSuccessful) {
-            val body = apiResponse.body()
-            when (apiResponse.code()) {
-                // 204 for delete brand story
-                200, 201, 204 -> {
-                    body?.let {
-                        val message = ""
-                        if (it == null) {
-                            setValue(Result.Success(it, message))
-                        } else {
-                            saveCallResult(processResponse(it))
-                            val result = loadFromDb() ?: processResponse(it)
-                            setValue(Result.Success(result))
                         }
-
+                        if (body == null) {
+                            setValue(Result.Success(null, apiResponse.message()))
+                        }
                     }
-                    if (body == null) {
-                        setValue(Result.Success(null, apiResponse.message()))
+                    else -> {
+                        setValue(Result.Error(apiResponse.message(), apiResponse.code()))
                     }
                 }
-                else -> {
-                    setValue(Result.Error(apiResponse.message(), apiResponse.code()))
-                }
+            } else {
+                val response =
+                    Gson().fromJson(apiResponse.errorBody()?.string(), ObjectResponse::class.java)
+                val errorMsg = response?.detail ?: ""
+                setValue(Result.Error(errorMsg, apiResponse.code()))
             }
-        } else {
-            val response =
-                Gson().fromJson(apiResponse.errorBody()?.string(), ObjectResponse::class.java)
-            val errorMsg = response?.detail ?: ""
-            setValue(Result.Error(errorMsg, apiResponse.code()))
         }
     }
 
@@ -108,5 +108,5 @@ constructor(private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
     protected open suspend fun loadFromDb(): ResultType? = null
 
     @MainThread
-    protected abstract suspend fun createCall(): Response<RequestType>
+    protected abstract suspend fun createCall(): Flow<Response<RequestType>>
 }

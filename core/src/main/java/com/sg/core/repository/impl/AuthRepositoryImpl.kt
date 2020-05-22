@@ -14,6 +14,9 @@ import com.sg.core.model.*
 import com.sg.core.repository.AuthRepository
 import com.sg.core.param.LoginParam
 import com.sg.core.vo.Listing
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import retrofit2.Response
 
 class AuthRepositoryImpl(val api: ApiService, val userDao: UserDao, val messageDao: MessageDao) :
@@ -22,7 +25,9 @@ class AuthRepositoryImpl(val api: ApiService, val userDao: UserDao, val messageD
     override suspend fun login(param: LoginParam): LiveData<Result<User>> {
         return object : NetworkBoundResource<ObjectResponse<User>, User>() {
 
-            override suspend fun createCall(): Response<ObjectResponse<User>> = api.login(param)
+            override suspend fun createCall(): Flow<Response<ObjectResponse<User>>> = flow {
+                emit(api.login(param))
+            }
 
             override fun processResponse(response: ObjectResponse<User>): User? = response.data
 

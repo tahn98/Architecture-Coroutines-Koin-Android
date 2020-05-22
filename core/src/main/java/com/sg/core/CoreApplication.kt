@@ -1,6 +1,7 @@
 package com.sg.core
 
 import android.app.Application
+import com.facebook.stetho.Stetho
 import com.sg.core.data.local.AppDatabase
 import com.sg.core.di.localModule
 import com.sg.core.di.remoteModule
@@ -34,6 +35,8 @@ open class CoreApplication : Application() {
             androidContext(this@CoreApplication)
             modules(getModule())
         }
+
+        Stetho.initializeWithDefaults(this);
 
         instance = this
         user = prefsUtil.user
