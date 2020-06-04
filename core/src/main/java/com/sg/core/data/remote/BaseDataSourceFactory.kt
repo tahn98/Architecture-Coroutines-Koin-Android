@@ -38,7 +38,7 @@ abstract class BaseDataSourceFactory<I, O>(val status: MutableLiveData<Result<O>
         firstLoad: Boolean
     ): List<O> {
         val result = arrayListOf<O>()
-        result.addAll(items.data as List<O>)
+        result.addAll(items.results as List<O>)
         return result
     }
 }

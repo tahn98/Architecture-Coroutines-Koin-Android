@@ -1,10 +1,11 @@
 package com.sg.core.model
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
 data class MetaData(
-    val total_count: Int? = null,
-    val total_pages: Int? = null,
-    val next_page: Int? = null,
-    val prev_page: Int? = null,
-    val current_page: Int? = null,
-    val current_per_page: Int? = null
+    val page: Int? = null,
+    @SerializedName("total_pages")
+    @Expose
+    val totalPages: Int? = null
 )
