@@ -49,32 +49,32 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun bindView() {
 
-        if (!hasReadStoragePermission()) {
-            requestReadAndWriteStoragePermission(999)
-        }
+//        if (!hasReadStoragePermission()) {
+//            requestReadAndWriteStoragePermission(999)
+//        }
 
-        adapter = MessagePagedAdapter()
-        loadStateAdapter = LoadStateAdapter()
-        mergeAdapter = MergeAdapter(adapter, loadStateAdapter)
-
-//        viewBinding.rvMessage.layoutManager =
-//            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        val gridLayoutManager = GridLayoutManager(this, 2)
-        viewBinding.rvMessage.layoutManager = gridLayoutManager
-        viewBinding.rvMessage.adapter = mergeAdapter
-        gridLayoutManager.spanSizeLookup = object :
-            GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return when {
-                    loadStateAdapter?.loadState is Result.Error -> return gridLayoutManager.spanCount
-
-                    ((gridLayoutManager.itemCount - 1 == position) && loadStateAdapter?.loadState is Result.LoadingMore) -> {
-                        return gridLayoutManager.spanCount
-                    }
-                    else -> 1
-                }
-            }
-        }
+//        adapter = MessagePagedAdapter()
+//        loadStateAdapter = LoadStateAdapter()
+//        mergeAdapter = MergeAdapter(adapter, loadStateAdapter)
+//
+////        viewBinding.rvMessage.layoutManager =
+////            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+//        val gridLayoutManager = GridLayoutManager(this, 2)
+//        viewBinding.rvMessage.layoutManager = gridLayoutManager
+//        viewBinding.rvMessage.adapter = mergeAdapter
+//        gridLayoutManager.spanSizeLookup = object :
+//            GridLayoutManager.SpanSizeLookup() {
+//            override fun getSpanSize(position: Int): Int {
+//                return when {
+//                    loadStateAdapter?.loadState is Result.Error -> return gridLayoutManager.spanCount
+//
+//                    ((gridLayoutManager.itemCount - 1 == position) && loadStateAdapter?.loadState is Result.LoadingMore) -> {
+//                        return gridLayoutManager.spanCount
+//                    }
+//                    else -> 1
+//                }
+//            }
+//        }
 
         authViewModel.login(
             LoginParam(
@@ -85,14 +85,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         )
 
 //        viewBinding.ivImageView.load("https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.0-9/s960x960/83503315_2532361526892826_6398406891898142720_o.jpg?_nc_cat=109&_nc_sid=110474&_nc_ohc=fM8c1-ZvmgYAX8BWKT-&_nc_ht=scontent.fsgn2-4.fna&_nc_tp=7&oh=a0ded138018389a32568ddda8f350c0d&oe=5EC3FE42")
-        viewBinding.ivImageView.load(R.drawable.image)
-        viewBinding.ivImageView.setOnClickListener {
-            val intent = Intent()
-            intent.type = "image/*"
-            intent.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(Intent.createChooser(intent, "Select Picture"), 999)
-        }
-
+//        viewBinding.ivImageView.load(R.drawable.image)
+//        viewBinding.ivImageView.setOnClickListener {
+//            val intent = Intent()
+//            intent.type = "image/*"
+//            intent.action = Intent.ACTION_GET_CONTENT
+//            startActivityForResult(Intent.createChooser(intent, "Select Picture"), 999)
+//        }
+//
         viewBinding.btnLogin.setOnClickListener {
             authViewModel.login(
                 LoginParam(
@@ -106,9 +106,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 999 && resultCode == Activity.RESULT_OK) {
-            viewBinding.ivImageView.load(data?.data?.path.toString())
-        }
+//        if (requestCode == 999 && resultCode == Activity.RESULT_OK) {
+//            viewBinding.ivImageView.load(data?.data?.path.toString())
+//        }
     }
 
     override fun bindViewModel() {
@@ -116,18 +116,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             CoreApplication.instance.saveUser(it)
             viewBinding.data = it
             Toast.makeText(this, it.email, Toast.LENGTH_SHORT).show()
-            authViewModel.messagePaging()
+//            authViewModel.messagePaging()
 
             DatabaseUtil().exportDB(this, "User")
 //            authViewModel.messagePagingDB()
         })
 
-        authViewModel.loadStateLiveData.observe(this, Observer {
-            loadStateAdapter?.loadState = it
-        })
+//        authViewModel.loadStateLiveData.observe(this, Observer {
+//            loadStateAdapter?.loadState = it
+//        })
 
-        authViewModel.messagesLiveData.observe(this, Observer {
-            adapter?.submitList(it)
-        })
+//        authViewModel.messagesLiveData.observe(this, Observer {
+//            adapter?.submitList(it)
+//        })
     }
 }

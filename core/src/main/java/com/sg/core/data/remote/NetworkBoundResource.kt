@@ -7,14 +7,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.sg.core.model.ObjectResponse
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import retrofit2.Response
 import com.sg.core.model.Result
+import com.sg.core.util.io
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
+@ExperimentalCoroutinesApi
 abstract class NetworkBoundResource<RequestType, ResultType>
 constructor(private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
 
@@ -22,91 +21,90 @@ constructor(private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
 
     private val result = MutableLiveData<Result<ResultType>>()
 
-    fun build(): NetworkBoundResource<RequestType, ResultType> {
+//    fun build(): NetworkBoundResource<RequestType, ResultType> {
+//
+//        result.value = Result.Loading
+//
+//        CoroutineScope(dispatcher).launch {
+//
+//            val dbResult = loadFromDb()
+//
+//            if (shouldFetch(dbResult)) {
+//                try {
+//                    fetchFromNetwork()
+//                } catch (e: java.lang.Exception) {
+//                    Log.e(TAG, "An error happened: $e")
+//                    setValue(Result.Error(e.message ?: "", 404))
+//                }
+//            } else {
+//                Log.d(TAG, "Return data from local database")
+//                if (dbResult != null)
+//                    setValue(Result.Success(dbResult))
+//            }
+//
+//        }
+//        return this
+//    }
 
-        result.value = Result.Loading
-
-        CoroutineScope(dispatcher).launch {
-
-            val dbResult = loadFromDb()
-
-            if (shouldFetch(dbResult)) {
-                try {
-                    fetchFromNetwork()
-                } catch (e: java.lang.Exception) {
-                    Log.e(TAG, "An error happened: $e")
-                    setValue(Result.Error(e.message ?: "", 404))
-                }
-            } else {
-                Log.d(TAG, "Return data from local database")
-                if (dbResult != null)
-                    setValue(Result.Success(dbResult))
-            }
-
-        }
-        return this
-    }
-
-    @MainThread
-    private fun setValue(newValue: Result<ResultType>) {
-        if (result.value != newValue) {
-            result.postValue(newValue)
-        }
-    }
-
-    private suspend fun fetchFromNetwork() {
+    fun buildAsFlow() = flow<Result<ResultType>> {
+        Log.d("THREAD_FLOW_HANDLE_API", Thread.currentThread().name)
         Log.i(TAG, "Fetch data from network")
+        Log.i(TAG, "Data fetched from network")
+        val dbResult = loadFromDb()
+        emit(Result.Loading)
+        fetchFromNetwork()
+    }.flowOn(dispatcher)
 
-        createCall().collect { apiResponse ->
-            Log.i(TAG, "Data fetched from network")
-            if (apiResponse.isSuccessful) {
-                val body = apiResponse.body()
-                when (apiResponse.code()) {
-                    // 204 for delete brand story
-                    200, 201, 204 -> {
-                        body?.let {
-                            val message = ""
-                            if (it == null) {
-                                setValue(Result.Success(it, message))
-                            } else {
-                                saveCallResult(processResponse(it))
-                                val result = loadFromDb() ?: processResponse(it)
-                                setValue(Result.Success(result))
-                            }
+    private suspend fun FlowCollector<Result<ResultType>>.fetchFromNetwork() {
+        val apiResponse = createCall()
+        if (apiResponse.isSuccessful) {
+            val body = apiResponse.body()
+            when (apiResponse.code()) {
+                // 204 for delete brand story
+                200, 201, 204 -> {
+                    body?.let {
+                        val message = ""
+                        if (it == null) {
+                            emit(Result.Success(it, message))
+                        } else {
+//                                saveCallResult(processResponse(it))
+                            val result = processResponse(it)
+//                                setValue(Result.Success(result))
+                            emit(Result.Success(result))
+                        }
 
-                        }
-                        if (body == null) {
-                            setValue(Result.Success(null, apiResponse.message()))
-                        }
                     }
-                    else -> {
-                        setValue(Result.Error(apiResponse.message(), apiResponse.code()))
+                    if (body == null) {
+                        emit(Result.Success(null, apiResponse.message()))
                     }
                 }
-            } else {
-                val response =
-                    Gson().fromJson(apiResponse.errorBody()?.string(), ObjectResponse::class.java)
-                val errorMsg = response?.detail ?: ""
-                setValue(Result.Error(errorMsg, apiResponse.code()))
+                else -> {
+                    emit(Result.Error(apiResponse.message(), apiResponse.code()))
+                }
             }
+        } else {
+            val response =
+                Gson().fromJson(apiResponse.errorBody()?.string(), ObjectResponse::class.java)
+            val errorMsg = response?.detail ?: ""
+            emit(Result.Error(errorMsg, apiResponse.code()))
         }
     }
 
-    fun asLiveData(): LiveData<Result<ResultType>> = result
+//    fun asFlowData(): Flow<Result<ResultType>> = result
 
     @WorkerThread
     protected abstract fun processResponse(response: RequestType): ResultType?
 
-    @WorkerThread
-    protected open suspend fun saveCallResult(item: ResultType?) {
-    }
+//    @WorkerThread
+//    protected open suspend fun saveCallResult(item: ResultType?) {
+//    }
 
-    @MainThread
-    protected open fun shouldFetch(data: ResultType?): Boolean = true
+//    @MainThread
+//    protected open fun shouldFetch(data: ResultType?): Boolean = true
 
     @MainThread
     protected open suspend fun loadFromDb(): ResultType? = null
 
     @MainThread
-    protected abstract suspend fun createCall(): Flow<Response<RequestType>>
+    protected abstract suspend fun createCall(): Response<RequestType>
 }
