@@ -1,5 +1,6 @@
 package com.sg.core.repository.impl
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.toLiveData
@@ -14,9 +15,13 @@ import com.sg.core.model.*
 import com.sg.core.repository.AuthRepository
 import com.sg.core.param.LoginParam
 import com.sg.core.vo.Listing
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class AuthRepositoryImpl(val api: ApiService, val userDao: UserDao, val messageDao: MessageDao) :
@@ -27,15 +32,19 @@ class AuthRepositoryImpl(val api: ApiService, val userDao: UserDao, val messageD
 
             override suspend fun createCall(): Response<ObjectResponse<User>> = api.login(param)
 
-            override fun processResponse(response: ObjectResponse<User>): User?  = response.data
-
-//            override fun processResponse(response: ObjectResponse<User>): User? = response.data
+            override fun processResponse(response: ObjectResponse<User>): User? = response.data
 
 //            override suspend fun saveCallResult(item: User?) {
 //                userDao.insert(item)
 //            }
 
+//            override suspend fun loadFromDb(): Flow<User>? {
+//                return  userDao.getUserFlow()
+////                    .map { it }
+//            }
+
         }.buildAsFlow()
+
     }
 
 //    override suspend fun loginDB(param: LoginParam): LiveData<Result<User>> {

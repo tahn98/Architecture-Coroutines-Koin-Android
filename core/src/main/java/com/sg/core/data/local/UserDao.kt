@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.sg.core.model.User
 import com.sg.core.param.LoginParam
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao : BaseDao<User> {
@@ -15,4 +16,7 @@ interface UserDao : BaseDao<User> {
 
     @Query("SELECT * FROM User WHERE email LIKE :email")
     suspend fun findUser(email : String?) : User?
+
+    @Query("SELECT * FROM User")
+     fun getUserFlow(): Flow<User>
 }
