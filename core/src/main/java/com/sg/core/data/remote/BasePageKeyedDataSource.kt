@@ -15,7 +15,7 @@ import kotlinx.coroutines.*
 import retrofit2.Response
 import kotlin.coroutines.CoroutineContext
 
-abstract class BasePageKeyedDataSource<I, O>(
+abstract class BasePageKeyedDataSource<I, O : Any>(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
     val status: MutableLiveData<Result<O>>
 ) : PageKeyedDataSource<Int, O>(), CoroutineScope {

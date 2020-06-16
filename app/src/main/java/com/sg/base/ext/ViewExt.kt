@@ -115,3 +115,9 @@ fun View.slideUp() {
 
     startAnimation(anim)
 }
+
+fun toVisibility(constraint: Boolean): Int = if (constraint) {
+    View.VISIBLE
+} else {
+    View.GONE
+}

@@ -8,7 +8,7 @@ import com.sg.core.model.ListResponse
 import com.sg.core.model.Result
 import retrofit2.Response
 
-abstract class BaseDataSourceFactory<I, O>(val status: MutableLiveData<Result<O>>) :
+abstract class BaseDataSourceFactory<I, O : Any>(val status: MutableLiveData<Result<O>>) :
     DataSource.Factory<Int, O>() {
     val sourceLiveData = MutableLiveData<BasePageKeyedDataSource<I, O>>()
 

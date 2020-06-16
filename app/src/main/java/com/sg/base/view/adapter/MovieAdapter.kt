@@ -3,6 +3,7 @@ package com.sg.base.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,7 @@ import com.sg.base.databinding.BriefDescriptionLayoutBinding
 import com.sg.core.model.Movie
 
 class NowPlayingAdapter(private val onItemClickListener: (Movie, Int) -> Unit) :
-    ListAdapter<Movie, NowPlayingAdapter.ViewHolder>(DIFF_CALLBACK) {
+    PagingDataAdapter<Movie, NowPlayingAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         var DIFF_CALLBACK: DiffUtil.ItemCallback<Movie> =
@@ -44,9 +45,9 @@ class NowPlayingAdapter(private val onItemClickListener: (Movie, Int) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(currentList[position], position)
+        holder.bind(getItem(position), position)
         holder.binding.root.setOnClickListener {
-            onItemClickListener.invoke(currentList[position], position)
+            onItemClickListener.invoke(getItem(position)!!, position)
         }
     }
 

@@ -16,13 +16,13 @@ class AuthViewModel(private val repository: MovieRepository) : ViewModel() {
     val liveData = MediatorLiveData<ListResponse<Movie>>()
 
     fun getMovies(page: Int) = viewModelScope.launch {
-        repository.getNowPlayingList(page).collect {
-            when (it) {
-                is Result.Success -> {
-                    liveData.value = it.data
-                }
-            }
-        }
+//        repository.getNowPlayingList(page).collect {
+//            when (it) {
+//                is Result.Success -> {
+//                    liveData.value = it.data
+//                }
+//            }
+//        }
     }
 
 }

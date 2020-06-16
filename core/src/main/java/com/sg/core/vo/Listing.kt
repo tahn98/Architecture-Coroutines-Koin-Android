@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 import com.sg.core.model.Result
 
-data class Listing<T>(
+data class Listing<T : Any>(
     // the LiveData of paged lists for the UI to observe
     val result: LiveData<PagedList<T>>,
     val status: LiveData<Result<T>>,

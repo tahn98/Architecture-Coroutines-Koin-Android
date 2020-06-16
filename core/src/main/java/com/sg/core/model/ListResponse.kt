@@ -14,7 +14,7 @@ import com.google.gson.annotations.SerializedName
 //)
 
 class ListResponse<T>(
-    val results: ArrayList<T>? = null,
+    val results: List<T>? = null,
     val page: Int? = null,
     @SerializedName("total_results")
     @Expose

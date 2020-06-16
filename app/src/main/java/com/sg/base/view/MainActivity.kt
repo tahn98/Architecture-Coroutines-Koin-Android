@@ -3,8 +3,11 @@ package com.sg.base.view
 import android.app.Activity
 import android.content.Intent
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,20 +62,30 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         if (!hasReadStoragePermission()) {
             requestReadAndWriteStoragePermission(999)
         }
-        nowPlayingAdapter = NowPlayingAdapter { movie, index ->
 
+
+        initAdapter()
+        lifecycleScope.launch {
+            movieViewModel.getMovies().collect {
+                nowPlayingAdapter.submitData(it)
+            }
         }
+    }
+
+    private fun initAdapter(){
+        nowPlayingAdapter = NowPlayingAdapter { movie, index -> }
         viewBinding.rcv.apply {
             layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
-            adapter = nowPlayingAdapter
+            adapter = nowPlayingAdapter.withLoadStateHeaderAndFooter(
+                header = com.sg.base.view.adapter.LoadStateAdapter{ nowPlayingAdapter.retry()},
+                footer = com.sg.base.view.adapter.LoadStateAdapter{ nowPlayingAdapter.retry()}
+            )
         }
-        movieViewModel.getMovies(1)
     }
 
 
+
     override fun bindViewModel() {
-        movieViewModel.liveData.observe(this, Observer {
-            nowPlayingAdapter.submitList(it.results)
-        })
+
     }
 }

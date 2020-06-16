@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.paging.PositionalDataSource
 
 
-abstract class BasePositionalDataSource<T>(val list: List<T>) : PositionalDataSource<T>() {
+abstract class BasePositionalDataSource<T : Any>(val list: List<T>) : PositionalDataSource<T>() {
     val TAG = BasePositionalDataSource::class.java.name
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<T>) {
