@@ -5,18 +5,21 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedList
+import androidx.paging.PagingData
 import com.sg.core.model.Message
 import com.sg.core.model.Result
 import com.sg.core.model.User
 import com.sg.core.param.LoginParam
 import com.sg.core.repository.AuthRepository
 import com.sg.core.util.collectValue
+import com.sg.core.util.ui
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
 
     val loginLiveData = MediatorLiveData<User>()
-//    val messagesLiveData = MediatorLiveData<PagedList<Message>>()
+    val messagesLiveData = MediatorLiveData<PagingData<Message>>()
 //    val loadStateLiveData = MediatorLiveData<Result<Message>>()
 
     fun login(param: LoginParam) {
@@ -39,7 +42,7 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
         }
     }
 
-//    fun loginDB(param: LoginParam){
+    //    fun loginDB(param: LoginParam){
 //        viewModelScope.launch {
 //            loginLiveData.addSource(repository.loginDB(param)){
 //                when(it){
@@ -51,19 +54,14 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
 //        }
 //    }
 //
-//    fun messagePaging() {
-//        viewModelScope.launch {
-//            val request = repository.message()
-//
-//            messagesLiveData.addSource(request.result) {
-//                messagesLiveData.value = it
-//            }
-//
-//            messagesLiveData.addSource(request.status){
-//               loadStateLiveData.value = it
-//            }
-//        }
-//    }
+    fun messagePaging() {
+        viewModelScope.launch {
+            repository.message().collectLatest {
+                messagesLiveData.value = it
+            }
+
+        }
+    }
 //
 //    fun messagePagingDB() {
 //        viewModelScope.launch {

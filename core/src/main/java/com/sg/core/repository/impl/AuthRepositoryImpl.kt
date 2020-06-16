@@ -3,18 +3,18 @@ package com.sg.core.repository.impl
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import androidx.paging.toLiveData
 import com.sg.core.api.ApiService
 import com.sg.core.data.local.LocalBoundResource
 import com.sg.core.data.local.MessageDao
 import com.sg.core.data.local.UserDao
-import com.sg.core.data.remote.BaseDataSourceFactory
-import com.sg.core.data.remote.BaseSource
+import com.sg.core.data.remote.BasePageKeyPagingSource
 import com.sg.core.data.remote.NetworkBoundResource
 import com.sg.core.model.*
 import com.sg.core.repository.AuthRepository
 import com.sg.core.param.LoginParam
-import com.sg.core.vo.Listing
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -63,31 +63,15 @@ class AuthRepositoryImpl(val api: ApiService, val userDao: UserDao, val messageD
 //        }.build().asLiveData()
 //    }
 //
-//    override suspend fun message(page: Int): Listing<Message> {
-//        val status = MutableLiveData<Result<Message>>()
-//
-//        val sourceFactory = object : BaseDataSourceFactory<Message, Message>(status) {
-//            override suspend fun createXCall(page: Int): Response<ListResponse<Message>> {
-//                return api.getMessage(page = page)
-//            }
-//
-//            override suspend fun handleXResponse(
-//                items: ListResponse<Message>,
-//                firstLoad: Boolean
-//            ): List<Message> {
-//                items.data?.forEach {
-//                    messageDao.insert(it)
-//                }
-//                return super.handleXResponse(items, firstLoad)
-//            }
-//        }
-//
-//        val pagedList = sourceFactory.toLiveData(pageSize = 11)
-//
-//        return Listing(result = pagedList, status = status, refresh = {
-//            sourceFactory.sourceLiveData.value?.invalidate()
-//        })
-//    }
+
+    override suspend fun message(page: Int) = Pager(PagingConfig(15)){
+        object : BasePageKeyPagingSource<Message, Message>(){
+            override suspend fun createCall(page: Int): Response<ListResponse<Message>> = api.getMessage(page)
+
+            override suspend fun handleResponse(items: ListResponse<Message>): List<Message> = items.data
+
+        }
+    }.flow
 //
 //    override suspend fun messageDB(): Listing<Message> {
 //        val status = MutableLiveData<Result<Message>>()

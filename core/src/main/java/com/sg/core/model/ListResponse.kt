@@ -9,5 +9,5 @@ class ListResponse<T>(
     val detail: String? = null,
     val status: Boolean? = false,
     @SerializedName(value = "data", alternate = ["results"])
-    val data: ArrayList<T>? = null
+    val data: List<T> = arrayListOf()
 )
