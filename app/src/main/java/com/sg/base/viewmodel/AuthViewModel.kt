@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedList
 import androidx.paging.PagingData
 import com.sg.core.model.Message
+import com.sg.core.model.Movie
 import com.sg.core.model.Result
 import com.sg.core.model.User
 import com.sg.core.param.LoginParam
@@ -20,6 +21,8 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
 
     val loginLiveData = MediatorLiveData<User>()
     val messagesLiveData = MediatorLiveData<PagingData<Message>>()
+    val movieLiveData = MediatorLiveData<PagingData<Movie>>()
+
 //    val loadStateLiveData = MediatorLiveData<Result<Message>>()
 
     fun login(param: LoginParam) {
@@ -58,6 +61,15 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
         viewModelScope.launch {
             repository.message().collectLatest {
                 messagesLiveData.value = it
+            }
+
+        }
+    }
+
+    fun moviePaging() {
+        viewModelScope.launch {
+            repository.movies().collectLatest {
+                movieLiveData.value = it
             }
 
         }

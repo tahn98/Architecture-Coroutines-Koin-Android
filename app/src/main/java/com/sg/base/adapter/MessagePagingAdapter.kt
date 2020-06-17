@@ -2,14 +2,17 @@ package com.sg.base.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.sg.base.R
 import com.sg.base.databinding.ItemMessageBinding
 import com.sg.core.model.Message
 
 class MessagePagingAdapter : PagingDataAdapter<Message, MessagePagingAdapter.MessageViewHolder>(
-    DIFF_UTIL) {
+    DIFF_UTIL
+) {
 
     companion object {
         val DIFF_UTIL = object : DiffUtil.ItemCallback<Message>() {
@@ -29,7 +32,9 @@ class MessagePagingAdapter : PagingDataAdapter<Message, MessagePagingAdapter.Mes
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
-        return MessageViewHolder(ItemMessageBinding.inflate(LayoutInflater.from(parent.context)))
+        val itemBinding =
+            ItemMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MessageViewHolder(itemBinding)
     }
 
     inner class MessageViewHolder(private val itemBinding: ItemMessageBinding) :
@@ -37,6 +42,7 @@ class MessagePagingAdapter : PagingDataAdapter<Message, MessagePagingAdapter.Mes
 
         fun bind(item: Message?) {
             itemBinding.data = item
+            itemBinding.executePendingBindings()
         }
     }
 

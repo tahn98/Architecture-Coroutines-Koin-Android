@@ -98,15 +98,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             )
         )
 
-//        viewBinding.ivImageView.load("https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.0-9/s960x960/83503315_2532361526892826_6398406891898142720_o.jpg?_nc_cat=109&_nc_sid=110474&_nc_ohc=fM8c1-ZvmgYAX8BWKT-&_nc_ht=scontent.fsgn2-4.fna&_nc_tp=7&oh=a0ded138018389a32568ddda8f350c0d&oe=5EC3FE42")
-//        viewBinding.ivImageView.load(R.drawable.image)
-//        viewBinding.ivImageView.setOnClickListener {
-//            val intent = Intent()
-//            intent.type = "image/*"
-//            intent.action = Intent.ACTION_GET_CONTENT
-//            startActivityForResult(Intent.createChooser(intent, "Select Picture"), 999)
-//        }
-//
         viewBinding.btnLogin.setOnClickListener {
             authViewModel.login(
                 LoginParam(

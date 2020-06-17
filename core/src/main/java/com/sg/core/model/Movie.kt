@@ -8,8 +8,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @Entity
-data class Message(
+data class Movie(
     @PrimaryKey
     var id: String = "",
-    var username: String? = ""
+    var title: String? = ""
 ) : Parcelable

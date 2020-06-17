@@ -44,7 +44,7 @@ android {
 
     productFlavors {
         staging {
-            buildConfigField "String", "SERVER_URL", '"http://string-api.vinova.sg/api/"'
+            buildConfigField "String", "SERVER_URL", '"https://api.stringtravel.com/api/"'
         }
         prod {
             buildConfigField "String", "SERVER_URL", '"http://string-api.vinova.sg/api/"'

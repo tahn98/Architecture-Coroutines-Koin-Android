@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import androidx.paging.toLiveData
 import com.sg.core.api.ApiService
 import com.sg.core.data.local.LocalBoundResource
@@ -64,11 +65,24 @@ class AuthRepositoryImpl(val api: ApiService, val userDao: UserDao, val messageD
 //    }
 //
 
-    override suspend fun message(page: Int) = Pager(PagingConfig(15)){
-        object : BasePageKeyPagingSource<Message, Message>(){
-            override suspend fun createCall(page: Int): Response<ListResponse<Message>> = api.getMessage(page)
+    override suspend fun message(page: Int) = Pager(PagingConfig(15)) {
+        object : BasePageKeyPagingSource<Message, Message>() {
+            override suspend fun createCall(page: Int): Response<ListResponse<Message>> =
+                api.getMessage(page)
 
-            override suspend fun handleResponse(items: ListResponse<Message>): List<Message> = items.data
+            override suspend fun handleResponse(items: ListResponse<Message>): List<Message> =
+                items.data
+
+        }
+    }.flow
+
+    override suspend fun movies(page: Int): Flow<PagingData<Movie>> = Pager(PagingConfig(20)) {
+        object : BasePageKeyPagingSource<Movie, Movie>() {
+            override suspend fun createCall(page: Int): Response<ListResponse<Movie>> =
+                api.getMovies(page)
+
+            override suspend fun handleResponse(items: ListResponse<Movie>): List<Movie> =
+                items.data
 
         }
     }.flow
