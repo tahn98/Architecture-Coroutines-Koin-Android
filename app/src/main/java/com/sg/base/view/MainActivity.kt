@@ -47,48 +47,42 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private val authViewModel: AuthViewModel by viewModel()
 
     private var adapter: MessagePagingAdapter? = null
-//    private var loadStateAdapter: LoadStateAdapter? = null
-//    private var mergeAdapter: MergeAdapter? = null
-
 
     override val layoutId: Int
         get() = R.layout.activity_main
 
     override fun bindView() {
 
-//        if (!hasReadStoragePermission()) {
-//            requestReadAndWriteStoragePermission(999)
-//        }
-
         adapter = MessagePagingAdapter()
-//        loadStateAdapter = LoadStateAdapter()
-//        mergeAdapter = MergeAdapter(adapter, loadStateAdapter)
-//
         viewBinding.rvMessage.layoutManager =
             LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 //        val gridLayoutManager = GridLayoutManager(this, 2)
 //        viewBinding.rvMessage.layoutManager = gridLayoutManager
         viewBinding.rvMessage.adapter = adapter?.withLoadStateFooter(
-            footer = BaseLoadStateAdapter()
-        )
-        lifecycleScope.launch {
-            adapter?.loadStateFlow?.collectLatest { loadStates ->
-                viewBinding.swipeRefresh.isRefreshing = loadStates.refresh is LoadState.Loading
+            footer = BaseLoadStateAdapter() {
+                adapter?.retry()
             }
-        }
-//        gridLayoutManager.spanSizeLookup = object :
-//            GridLayoutManager.SpanSizeLookup() {
+        )
+//        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
 //            override fun getSpanSize(position: Int): Int {
 //                return when {
-//                    loadStateAdapter?.loadState is Result.Error -> return gridLayoutManager.spanCount
-//
-//                    ((gridLayoutManager.itemCount - 1 == position) && loadStateAdapter?.loadState is Result.LoadingMore) -> {
+//                    (gridLayoutManager.itemCount - 1 == position) -> {
 //                        return gridLayoutManager.spanCount
 //                    }
 //                    else -> 1
 //                }
 //            }
 //        }
+
+        lifecycleScope.launch {
+            adapter?.loadStateFlow?.collectLatest { loadStates ->
+                viewBinding.swipeRefresh.isRefreshing = loadStates.refresh is LoadState.Loading
+            }
+        }
+
+        viewBinding.swipeRefresh.setOnRefreshListener { adapter?.refresh() }
+
+//
 
         authViewModel.login(
             LoginParam(
@@ -109,36 +103,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == 999 && resultCode == Activity.RESULT_OK) {
-//            viewBinding.ivImageView.load(data?.data?.path.toString())
-//        }
-    }
-
     override fun bindViewModel() {
         authViewModel.loginLiveData.observe(this, Observer {
             CoreApplication.instance.saveUser(it)
             viewBinding.data = it
-//            Toast.makeText(this, it.email, Toast.LENGTH_SHORT).show()
-            authViewModel.messagePaging()
-
-//            DatabaseUtil().exportDB(this, "User")
-//            authViewModel.messagePagingDB()
         })
 
-        authViewModel.messagesLiveData.observe(this, Observer {
-            lifecycleScope.launch {
-                adapter?.submitData(it)
+        lifecycleScope.launch {
+            authViewModel.messageFlow.collectLatest { paging ->
+                adapter?.submitData(paging)
             }
-        })
-
-//        authViewModel.loadStateLiveData.observe(this, Observer {
-//            loadStateAdapter?.loadState = it
-//        })
-
-//        authViewModel.messagesLiveData.observe(this, Observer {
-//            adapter?.submitList(it)
-//        })
+        }
     }
 }

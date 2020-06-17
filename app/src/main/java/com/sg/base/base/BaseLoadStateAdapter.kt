@@ -8,14 +8,16 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sg.base.databinding.ItemLoadStateBinding
 
-class BaseLoadStateAdapter : LoadStateAdapter<BaseLoadStateAdapter.LoadStateViewHolder>() {
+class BaseLoadStateAdapter(private val retry: (() -> Unit)? = null) :
+    LoadStateAdapter<BaseLoadStateAdapter.LoadStateViewHolder>() {
 
     override fun onBindViewHolder(holder: LoadStateViewHolder, loadState: LoadState) {
         holder.bind(loadState)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoadStateViewHolder {
-        val itemBinding = ItemLoadStateBinding.inflate(LayoutInflater.from(parent.context))
+        val itemBinding =
+            ItemLoadStateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return LoadStateViewHolder(itemBinding)
     }
 
@@ -29,6 +31,10 @@ class BaseLoadStateAdapter : LoadStateAdapter<BaseLoadStateAdapter.LoadStateView
             itemBinding.progressBar.visibility = toVisibility(loadState == LoadState.Loading)
             itemBinding.retryButton.visibility = toVisibility(loadState != LoadState.Loading)
             itemBinding.errorMsg.visibility = toVisibility(loadState != LoadState.Loading)
+
+            itemBinding.retryButton.setOnClickListener {
+                retry?.invoke()
+            }
         }
 
         private fun toVisibility(constraint: Boolean): Int = if (constraint) {

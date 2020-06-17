@@ -14,7 +14,7 @@ import com.sg.core.param.LoginParam
 import com.sg.core.repository.AuthRepository
 import com.sg.core.util.collectValue
 import com.sg.core.util.ui
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
@@ -57,14 +57,19 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
 //        }
 //    }
 //
-    fun messagePaging() {
-        viewModelScope.launch {
-            repository.message().collectLatest {
-                messagesLiveData.value = it
-            }
+//    fun messagePaging() {
+//        viewModelScope.launch {
+//            repository.message().collectLatest {
+//                messagesLiveData.value = it
+//            }
+//
+//        }
+//    }
 
-        }
+    val messageFlow = flow {
+        emitAll(repository.message())
     }
+
 
     fun moviePaging() {
         viewModelScope.launch {
