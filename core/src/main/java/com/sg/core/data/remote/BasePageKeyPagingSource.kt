@@ -16,9 +16,8 @@ abstract class BasePageKeyPagingSource<I, O : Any>() : PagingSource<Int, O>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, O> {
         try {
             Log.i(TAG, "Data fetched from network")
-
+            Log.i(TAG, Thread.currentThread().name)
             val apiResponse = createCall(params.key ?: 1)
-
             if (apiResponse.isSuccessful) {
                 val body = apiResponse.body()
                 when (apiResponse.code()) {
@@ -27,14 +26,11 @@ abstract class BasePageKeyPagingSource<I, O : Any>() : PagingSource<Int, O>() {
                             val result = handleResponse(it)
                             return if (result.isNotEmpty()) {
                                 LoadResult.Page(
-                                    data = result,
-                                    prevKey = null,
+                                    data = result, prevKey = null,
                                     nextKey = body.metadata?.next_page
                                 )
                             } else {
-                                LoadResult.Error(
-                                    Exception("End Data")
-                                )
+                                LoadResult.Error(Exception("End Data"))
                             }
                         }
                     }
@@ -49,7 +45,6 @@ abstract class BasePageKeyPagingSource<I, O : Any>() : PagingSource<Int, O>() {
                     Exception(Gson().toJson(apiResponse.errorBody()))
                 )
             }
-
         } catch (e: Exception) {
             return LoadResult.Error(e)
         }
