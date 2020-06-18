@@ -20,7 +20,7 @@
 //    override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<T>) {
 //        val totalCount = list.size
 //        val position = computeInitialLoadPosition(params, totalCount)
-//        val loadSize = computeInitialLoadSize(params, position, totalCount)
+//        val loadSize = comaputeInitialLoadSize(params, position, totalCount)
 //        val data = list.subList(position, position + loadSize)
 //        callback.onResult(data, position, totalCount)
 //    }
