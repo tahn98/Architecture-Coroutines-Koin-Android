@@ -2,10 +2,12 @@ package com.sg.base.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedList
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.sg.core.model.Message
 import com.sg.core.model.Movie
 import com.sg.core.model.Result
@@ -20,15 +22,15 @@ import kotlinx.coroutines.launch
 
 class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
 
-    val loginLiveData = MediatorLiveData<User>()
-    val messagesLiveData = MediatorLiveData<PagingData<Message>>()
-    val movieLiveData = MediatorLiveData<PagingData<Movie>>()
+    val loginLiveData = MutableLiveData<User>()
+//    val messagesLiveData = MediatorLiveData<PagingData<Message>>()
+//    val movieLiveData = MediatorLiveData<PagingData<Movie>>()
 
 //    val loadStateLiveData = MediatorLiveData<Result<Message>>()
 
     fun login(param: LoginParam) {
         viewModelScope.launch {
-            repository.login(param).collectValue {
+            repository.login(param).collect {
                 when (it) {
                     is Result.Success -> {
                         Log.d("THREAD_FLOW_UPDATE_UI", Thread.currentThread().name)
@@ -65,22 +67,20 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
 //            }
 //
 //        }
-//    }
 
     val messageFlow = flow {
         emitAll(repository.message())
-    }
+    }.cachedIn(viewModelScope)
 
-
-    fun moviePaging() {
-        viewModelScope.launch {
-            repository.movies().collectLatest {
-                movieLiveData.value = it
-            }
-
-        }
-    }
+//    fun moviePaging() {
+//        viewModelScope.launch {
+//            repository.movies().collectLatest {
+//                movieLiveData.value = it
+//            }
 //
+//        }
+//    }
+////
 //    fun messagePagingDB() {
 //        viewModelScope.launch {
 //            val request = repository.messageDB()

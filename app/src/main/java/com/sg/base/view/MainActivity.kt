@@ -54,25 +54,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun bindView() {
 
         adapter = MessagePagingAdapter()
-        viewBinding.rvMessage.layoutManager =
-            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-//        val gridLayoutManager = GridLayoutManager(this, 2)
-//        viewBinding.rvMessage.layoutManager = gridLayoutManager
+//        viewBinding.rvMessage.layoutManager =
+//            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        val gridLayoutManager = GridLayoutManager(this, 2)
+        viewBinding.rvMessage.layoutManager = gridLayoutManager
         viewBinding.rvMessage.adapter = adapter?.withLoadStateFooter(
             footer = BaseLoadStateAdapter() {
                 adapter?.retry()
             }
         )
-//        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-//            override fun getSpanSize(position: Int): Int {
-//                return when {
-//                    (gridLayoutManager.itemCount - 1 == position) -> {
-//                        return gridLayoutManager.spanCount
-//                    }
-//                    else -> 1
-//                }
-//            }
-//        }
+        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return when {
+                    (gridLayoutManager.itemCount - 1 == position) -> {
+                        return gridLayoutManager.spanCount
+                    }
+                    else -> 1
+                }
+            }
+        }
 
         lifecycleScope.launch {
             adapter?.loadStateFlow?.collectLatest { loadStates ->
@@ -114,5 +114,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 adapter?.submitData(paging)
             }
         }
+
+
     }
 }
