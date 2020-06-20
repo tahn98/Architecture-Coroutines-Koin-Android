@@ -1,10 +1,7 @@
 package com.sg.base.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.PagedList
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -17,16 +14,18 @@ import com.sg.core.repository.AuthRepository
 import com.sg.core.util.collectValue
 import com.sg.core.util.ui
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
+class AuthViewModel(private val repository: AuthRepository, private val savedStateHandle : SavedStateHandle) : ViewModel() {
 
     val loginLiveData = MutableLiveData<User>()
     val messagesLiveData = MediatorLiveData<PagingData<Message>>()
 //    val movieLiveData = MediatorLiveData<PagingData<Movie>>()
 
 //    val loadStateLiveData = MediatorLiveData<Result<Message>>()
+
 
     fun login(param: LoginParam) {
         viewModelScope.launch {
@@ -68,9 +67,40 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
 //
 //        }
 
-    val messageFlow = flow {
-        emitAll(repository.message())
-    }.cachedIn(viewModelScope) // Save PagingData in ViewModel when Rotation Screen -> No need call again
+    companion object {
+        const val KEY_SUBREDDIT = "subreddit"
+        const val DEFAULT_SUBREDDIT = ""
+    }
+
+    init {
+        if (!savedStateHandle.contains(KEY_SUBREDDIT)) {
+            savedStateHandle.set(KEY_SUBREDDIT, DEFAULT_SUBREDDIT)
+        }
+    }
+
+    private val clearListCh = Channel<Unit>(Channel.CONFLATED)
+
+
+//    var messageFlow = flow {
+//        emitAll(repository.message())
+//    }.cachedIn(viewModelScope) // Save PagingData in ViewModel when Rotation Screen -> No need call again
+
+    var messageFlowSearch = flowOf(
+        clearListCh.consumeAsFlow().map { PagingData.empty<Message>() },
+        savedStateHandle.getLiveData<String>(KEY_SUBREDDIT)
+            .asFlow()
+            .flatMapLatest { repository.message(it) }).flattenMerge(2).cachedIn(viewModelScope)
+
+    private fun shouldShowSubreddit(
+        keyword: String
+    ) = savedStateHandle.get<String>(KEY_SUBREDDIT) != keyword
+
+    fun searchUser(keyword: String = "") {
+        if (!shouldShowSubreddit(keyword)) return
+
+        clearListCh.offer(Unit)
+        savedStateHandle.set(KEY_SUBREDDIT, keyword)
+    }
 
 //    fun moviePaging() {
 //        viewModelScope.launch {

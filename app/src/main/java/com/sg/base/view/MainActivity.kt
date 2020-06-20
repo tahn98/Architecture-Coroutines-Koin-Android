@@ -5,15 +5,17 @@ import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.databinding.adapters.TextViewBindingAdapter
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.*
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import com.sg.base.MainApplication
 import com.sg.base.R
 import com.sg.base.adapter.MessagePagingAdapter
 import com.sg.base.base.BaseActivity
@@ -64,7 +66,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
+                authViewModel.searchUser(s.toString())
             }
 
         })
@@ -126,10 +128,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         })
 
         lifecycleScope.launch {
-            authViewModel.messageFlow.collectLatest { paging ->
+            authViewModel.messageFlowSearch.collectLatest { paging ->
                 adapter?.submitData(paging)
             }
         }
+
+//        authViewModel.messagesLiveData.observe(this, Observer {
+//            lifecycleScope.launch {
+//                adapter?.submitData(PagingData.empty())
+//                adapter?.submitData(it)
+//            }
+//        })
 
 
     }
