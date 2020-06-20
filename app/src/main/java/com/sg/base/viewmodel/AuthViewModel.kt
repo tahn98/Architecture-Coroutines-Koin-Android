@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
 
     val loginLiveData = MutableLiveData<User>()
-//    val messagesLiveData = MediatorLiveData<PagingData<Message>>()
+    val messagesLiveData = MediatorLiveData<PagingData<Message>>()
 //    val movieLiveData = MediatorLiveData<PagingData<Movie>>()
 
 //    val loadStateLiveData = MediatorLiveData<Result<Message>>()
@@ -70,7 +70,7 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
 
     val messageFlow = flow {
         emitAll(repository.message())
-    }.cachedIn(viewModelScope)
+    }.cachedIn(viewModelScope) // Save PagingData in ViewModel when Rotation Screen -> No need call again
 
 //    fun moviePaging() {
 //        viewModelScope.launch {

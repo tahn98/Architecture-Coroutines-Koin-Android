@@ -2,7 +2,10 @@ package com.sg.base.view
 
 import android.app.Activity
 import android.content.Intent
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Toast
+import androidx.databinding.adapters.TextViewBindingAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -52,6 +55,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         get() = R.layout.activity_main
 
     override fun bindView() {
+
+        viewBinding.edtUser.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+        })
 
         adapter = MessagePagingAdapter()
 //        viewBinding.rvMessage.layoutManager =

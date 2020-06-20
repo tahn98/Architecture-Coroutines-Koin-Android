@@ -65,10 +65,10 @@ class AuthRepositoryImpl(val api: ApiService, val userDao: UserDao, val messageD
 //    }
 //
 
-    override suspend fun message(page: Int) = Pager(PagingConfig(15)) {
+    override suspend fun message(keyword: String, page: Int) = Pager(PagingConfig(15)) {
         object : BasePageKeyPagingSource<Message, Message>() {
             override suspend fun createCall(page: Int): Response<ListResponse<Message>> =
-                api.getMessage(page)
+                api.getMessage(keyword = keyword, page = page)
 
             override suspend fun handleResponse(items: ListResponse<Message>): List<Message> =
                 items.data

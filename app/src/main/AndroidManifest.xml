@@ -18,8 +18,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name="com.sg.base.view.MainActivity"
-            android:screenOrientation="sensorPortrait">
+            android:name="com.sg.base.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

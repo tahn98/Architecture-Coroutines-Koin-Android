@@ -26,9 +26,9 @@ abstract class BaseActivity<ViewBinding : ViewDataBinding> : AppCompatActivity()
         super.onCreate(savedInstanceState)
 //        AppEvent.addPopupEventListener(this)
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        window.setFlags(
+//            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//            WindowManager.LayoutParams.FLAG_FULLSCREEN);
         viewBinding = DataBindingUtil.setContentView(this, layoutId)
         viewBinding.lifecycleOwner = this
         viewBinding.root.setAutoHideKeyboard(this)

@@ -17,7 +17,7 @@ interface AuthRepository {
 
 //    suspend fun loginDB(param: LoginParam) : LiveData<Result<User>>
 //
-    suspend fun message(page: Int = 1):  Flow<PagingData<Message>>
+    suspend fun message(keyword : String = "", page: Int = 1):  Flow<PagingData<Message>>
 
     suspend fun movies(page: Int = 1):  Flow<PagingData<Movie>>
 
