@@ -10,9 +10,7 @@ import org.koin.dsl.module
 
 val appModules = module {
 
-    single { SavedStateHandle() }
-
-    viewModel {
-        AuthViewModel(get(), get())
+    viewModel { (saveStateHandle: SavedStateHandle) ->
+        AuthViewModel(get(), saveStateHandle)
     }
 }

@@ -32,6 +32,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 /**
  * Skeleton of an Android Things activity.
@@ -49,7 +50,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  */
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    private val authViewModel: AuthViewModel by viewModel()
+    private val authViewModel: AuthViewModel by viewModel {
+        parametersOf(
+            SavedStateHandle()
+        )
+    }
 
     private var adapter: MessagePagingAdapter? = null
 
