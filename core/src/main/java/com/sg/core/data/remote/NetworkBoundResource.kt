@@ -21,6 +21,9 @@ constructor(private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
 
     private val result = MutableLiveData<Result<ResultType>>()
 
+    /**
+     *  Init this abstract class [build].
+     */
     fun build(): NetworkBoundResource<RequestType, ResultType> {
 
         result.value = Result.Loading
@@ -53,6 +56,9 @@ constructor(private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
         }
     }
 
+    /**
+     * This Func handle response from Network [fetchFromNetwork].
+     */
     private suspend fun fetchFromNetwork() {
         Log.i(TAG, "Fetch data from network")
 
@@ -92,21 +98,39 @@ constructor(private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
         }
     }
 
+    /**
+     * Return a LiveData [asLiveData].
+     */
     fun asLiveData(): LiveData<Result<ResultType>> = result
 
+    /**
+     * This Func handle data before return to View [processResponse].
+     */
     @WorkerThread
     protected abstract fun processResponse(response: RequestType): ResultType?
 
+    /**
+     * Save data into database [saveCallResult].
+     */
     @WorkerThread
     protected open suspend fun saveCallResult(item: ResultType?) {
     }
 
+    /**
+     * Want to load data from api or database [shouldFetch].
+     */
     @MainThread
     protected open fun shouldFetch(data: ResultType?): Boolean = true
 
+    /**
+     * Load data from database [loadFromDb].
+     */
     @MainThread
     protected open suspend fun loadFromDb(): ResultType? = null
 
+    /**
+     * Call data from network [createCall].
+     */
     @MainThread
     protected abstract suspend fun createCall(): Response<RequestType>
 }
