@@ -3,6 +3,7 @@ package com.sg.base.view
 import android.app.Activity
 import android.content.Intent
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
@@ -19,7 +20,9 @@ import com.sg.core.CoreApplication
 import com.sg.core.model.Result
 import com.sg.core.param.LoginParam
 import com.sg.core.util.DatabaseUtil
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
+
+//import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * Skeleton of an Android Things activity.
@@ -35,9 +38,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  *
  * You can find additional examples on GitHub: https://github.com/androidthings
  */
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    private val authViewModel: AuthViewModel by viewModel()
+    private val authViewModel by viewModels<AuthViewModel>()
 
     private var adapter: MessagePagedAdapter? = null
     private var loadStateAdapter: LoadStateAdapter? = null

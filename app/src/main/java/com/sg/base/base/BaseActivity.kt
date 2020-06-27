@@ -10,7 +10,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.sg.base.ext.setAutoHideKeyboard
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 abstract class BaseActivity<ViewBinding : ViewDataBinding> : AppCompatActivity(){
     lateinit var viewBinding: ViewBinding
 

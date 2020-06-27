@@ -12,7 +12,9 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 abstract class BaseFragment<ViewBinding : ViewDataBinding> : Fragment() {
     lateinit var viewBinding: ViewBinding
     @get:LayoutRes

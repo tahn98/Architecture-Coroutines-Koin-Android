@@ -2,9 +2,11 @@ package com.sg.base
 
 import androidx.lifecycle.LifecycleObserver
 import com.sg.core.CoreApplication
-import com.sg.base.di.appModules
-import org.koin.core.module.Module
+//import com.sg.base.di.appModules
+import dagger.hilt.android.HiltAndroidApp
+//import org.koin.core.module.Module
 
+@HiltAndroidApp
 class MainApplication : CoreApplication(), LifecycleObserver {
 
     companion object {
@@ -19,7 +21,7 @@ class MainApplication : CoreApplication(), LifecycleObserver {
 
     fun getInstance() = instance
 
-    override fun addModules(): List<Module> {
-        return listOf(appModules)
-    }
+//    override fun addModules(): List<Module> {
+//        return listOf()
+//    }
 }
