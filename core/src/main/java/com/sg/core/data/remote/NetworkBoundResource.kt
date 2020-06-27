@@ -14,6 +14,17 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 import com.sg.core.model.Result
 
+/**
+ * Constructs [NetworkBoundResource]
+ *
+ * @param dispatcher
+ *            the Coroutines will lunch at Dispatchers.IO Worker Thread.
+ * @param RequestType
+ *            the type Input data.
+ * @param ResultType
+ *            the type Output data.
+ */
+
 abstract class NetworkBoundResource<RequestType, ResultType>
 constructor(private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
 
@@ -69,7 +80,6 @@ constructor(private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
         if (apiResponse.isSuccessful) {
             val body = apiResponse.body()
             when (apiResponse.code()) {
-                // 204 for delete brand story
                 200, 201, 204 -> {
                     body?.let {
                         val message = ""
