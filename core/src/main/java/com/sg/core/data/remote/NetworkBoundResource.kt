@@ -110,7 +110,7 @@ constructor(private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
     protected abstract fun processResponse(response: RequestType): ResultType?
 
     /**
-     * Save data into database [saveCallResult].
+     * Save data into database [saveCallResult] (Optional).
      */
     @WorkerThread
     protected open suspend fun saveCallResult(item: ResultType?) {
@@ -118,18 +118,19 @@ constructor(private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
 
     /**
      * Want to load data from api or database [shouldFetch].
+     * If [loadFromDb] return a [result] -> [shouldFetch] is false
      */
     @MainThread
     protected open fun shouldFetch(data: ResultType?): Boolean = true
 
     /**
-     * Load data from database [loadFromDb].
+     * Load data from database [loadFromDb] (Optional).
      */
     @MainThread
     protected open suspend fun loadFromDb(): ResultType? = null
 
     /**
-     * Call data from network [createCall].
+     * Call data from network [createCall] (Required).
      */
     @MainThread
     protected abstract suspend fun createCall(): Response<RequestType>
