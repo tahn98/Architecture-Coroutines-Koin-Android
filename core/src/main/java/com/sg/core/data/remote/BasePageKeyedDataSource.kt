@@ -32,7 +32,8 @@ abstract class BasePageKeyedDataSource<I, O>(
     ) {
         if (CoreApplication.instance.isNetworkConnected()) {
             runBlocking {
-                fetchFromNetwork(initialCallback = callback)            }
+                fetchFromNetwork(initialCallback = callback)
+            }
         } else {
             AppEvent.onNoInternet()
             setValue(Result.Error("", 404))
@@ -61,7 +62,6 @@ abstract class BasePageKeyedDataSource<I, O>(
         initialCallback: LoadInitialCallback<Int, O>? = null,
         callback: LoadCallback<Int, O>? = null
     ) {
-
         Log.i(TAG, "Fetch paging from network")
         if (page == 1)
             setValue(Result.Loading)

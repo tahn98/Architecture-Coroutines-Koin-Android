@@ -6,11 +6,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.Coil
+import coil.load
 import com.sg.core.model.Message
 import com.sg.base.R
 import com.sg.base.databinding.ItemMessageBinding
 
-class MessagePagedAdapter() : PagedListAdapter<Message, MessagePagedAdapter.MessageViewHolder>(
+class MessagePagedAdapter(
+    val onClick: (Message?) -> Unit
+) : PagedListAdapter<Message, MessagePagedAdapter.MessageViewHolder>(
     DIFF_UTIL
 ) {
 
@@ -47,6 +51,9 @@ class MessagePagedAdapter() : PagedListAdapter<Message, MessagePagedAdapter.Mess
 
         fun bind(item: Message?) {
             itemBinding.data = item
+            itemBinding.root.setOnClickListener {
+                onClick(item)
+            }
         }
     }
 

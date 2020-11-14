@@ -2,22 +2,37 @@ package com.sg.base.base
 
 import android.app.Activity
 import android.os.Bundle
+import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
+import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.bluelinelabs.conductor.Conductor
+import com.bluelinelabs.conductor.Controller
+import com.bluelinelabs.conductor.Router
+import com.bluelinelabs.conductor.RouterTransaction
 import com.sg.base.ext.setAutoHideKeyboard
+import java.lang.Error
 
-abstract class BaseActivity<ViewBinding : ViewDataBinding> : AppCompatActivity(){
+abstract class BaseActivity<ViewBinding : ViewDataBinding> : AppCompatActivity() {
     lateinit var viewBinding: ViewBinding
 
     @get:LayoutRes
     abstract val layoutId: Int
+
     @get:LayoutRes
     open val toolbarLayoutId: Int = -1
+
+    @get:IdRes
+    open val containerId: Int = -1
+    open val rootController: Controller? = null
+
+    protected var router: Router? = null
+
 
 //    private var listOfPopupDialogFragment: Set<DialogFragment> =
 //        CopyOnWriteArraySet<DialogFragment>()
@@ -25,15 +40,43 @@ abstract class BaseActivity<ViewBinding : ViewDataBinding> : AppCompatActivity()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        AppEvent.addPopupEventListener(this)
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
         viewBinding = DataBindingUtil.setContentView(this, layoutId)
         viewBinding.lifecycleOwner = this
         viewBinding.root.setAutoHideKeyboard(this)
+
+        if (containerId != -1) {
+            val container = findViewById<ViewGroup>(containerId)
+            router = Conductor.attachRouter(this, container, savedInstanceState)
+            if (rootController != null && router?.hasRootController() == false) {
+                router?.setRoot(
+                    RouterTransaction.with(rootController!!)
+                )
+            } else {
+                throw Error("rootController must not be null")
+            }
+        }
+
         bindView()
         bindViewModel()
+    }
+
+    fun changeScreen(controller: Controller) {
+        router?.pushController(
+            RouterTransaction.with(
+                controller
+            )
+        )
+    }
+
+    override fun onBackPressed() {
+        if (router?.handleBack() == false) {
+            super.onBackPressed()
+        }
     }
 
     private fun setupToolbar() {
