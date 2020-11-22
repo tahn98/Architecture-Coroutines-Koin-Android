@@ -38,7 +38,7 @@ fun createOkHttpClient(): OkHttpClient {
                 val builder = request.newBuilder()
                 val token = CoreApplication.instance.getUser()?.access_token
                 if (token != null) {
-//                    builder.header("Authorization", "Bearer $token")
+                    builder.header("Authorization", "Bearer $token")
                 }
                 request = builder.build()
                 return chain.proceed(request)
