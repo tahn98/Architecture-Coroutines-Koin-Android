@@ -13,7 +13,8 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        // Change to AndroidX
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
@@ -25,9 +26,14 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
-    dataBinding {
-        enabled = true
+    // Replace
+    buildFeatures {
+        dataBinding = true
     }
+
+//    dataBinding {
+//        enabled = true
+//    }
 
     androidExtensions {
         experimental = true
@@ -55,9 +61,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
 //    compileOnly 'com.google.android.things:androidthings:1.0'
 
@@ -87,4 +90,22 @@ dependencies {
     //stetho
     api deps.stetho.common
     api deps.stetho.okhttp
+
+    // Unit Test
+//    testImplementation 'junit:junit:4.12'
+//    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    api deps.junit
+//    api deps.kotlin.test
+//    api deps.mockito.core
+//    api deps.mockito.android
+//    api deps.dexmaker
+//    api deps.mock_web_server
+//    api deps.hamcrest
+//    api deps.robolectric
+//    api deps.atsl.core
+    api deps.atsl.ext_junit
+//    api deps.atsl.runner
+//    api deps.atsl.rules
+    api deps.espresso.core
 }
