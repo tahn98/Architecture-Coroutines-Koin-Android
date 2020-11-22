@@ -18,7 +18,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name="com.sg.base.view.MainActivity"
+            android:name="com.sg.base.view.LoginActivity"
             android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,6 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.sg.base.view.MainActivity"
+            android:screenOrientation="sensorPortrait" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -35,8 +39,7 @@
             <!-- ressource file to create -->
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths">
-            </meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
 
     </application>
