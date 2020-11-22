@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
-import coil.api.load
+import coil.load
 import com.sg.base.R
 import com.sg.base.adapter.MessagePagedAdapter
 import com.sg.base.base.BaseActivity
