@@ -23,7 +23,6 @@ import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-@ExperimentalCoroutinesApi
 class AuthViewModelTest {
 
     @get:Rule
@@ -31,7 +30,6 @@ class AuthViewModelTest {
 
     @Mock
     private lateinit var repo: AuthRepository
-
     @Mock
     lateinit var observer: Observer<User>
 
