@@ -98,13 +98,12 @@ dependencies {
     api deps.junit
 //    api deps.kotlin.test
 //    api deps.mockito.core
-    api deps.mockito.android
+//    api deps.mockito.android
 //    api deps.dexmaker
 //    api deps.mock_web_server
 //    api deps.hamcrest
 //    api deps.robolectric
 //    api deps.atsl.core
-    api deps.atsl.ext_junit
 //    api deps.atsl.runner
     api deps.atsl.rules
     api deps.espresso.core

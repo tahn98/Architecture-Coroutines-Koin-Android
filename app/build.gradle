@@ -106,4 +106,10 @@ dependencies {
 //    implementation deps.glide.runtime
 //    annotationProcessor deps.glide.compiler
 
+    testImplementation deps.mockito.core
+    androidTestImplementation deps.mockito.android
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.1'
+    testImplementation deps.arch_core.testing
+//    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
+
 }
