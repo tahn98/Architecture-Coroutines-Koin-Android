@@ -83,7 +83,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //                "dGKlJJU1lCc:APA91bGZTz25rKtcb5WobysyPQSUp0Bfp4w1hblFjgWQeGdCEZwgFmRTCTQX9vhDk2WazWcvwpOHn8MV4NyTjrgE5vFEraxP5GbAMOnqYmo6FyVGy924yS98pEYSJXBJZ_5g_56nIFuC"
 //            )
 //        )
-
+        viewBinding.data = CoreApplication.instance.getUser()
         authViewModel.messagePaging()
 
 //        viewBinding.ivImageView.load("https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.0-9/s960x960/83503315_2532361526892826_6398406891898142720_o.jpg?_nc_cat=109&_nc_sid=110474&_nc_ohc=fM8c1-ZvmgYAX8BWKT-&_nc_ht=scontent.fsgn2-4.fna&_nc_tp=7&oh=a0ded138018389a32568ddda8f350c0d&oe=5EC3FE42")
@@ -106,7 +106,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun bindViewModel() {
 //        authViewModel.loginLiveData.observe(this, Observer {
 //            CoreApplication.instance.saveUser(it)
-//            viewBinding.data = it
 //            Toast.makeText(this, it.email, Toast.LENGTH_SHORT).show()
 //            authViewModel.messagePaging()
 //

@@ -2,26 +2,19 @@ package com.sg.base.view
 
 import android.content.Context
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.test.espresso.Espresso
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
-import androidx.test.filters.MediumTest
-import androidx.test.filters.SmallTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import com.sg.base.R
 import com.sg.core.CoreApplication
 import junit.framework.TestCase
-import okhttp3.internal.wait
-import org.hamcrest.Matcher
-import org.hamcrest.MatcherAssert
 import org.hamcrest.Matchers.instanceOf
 import org.hamcrest.Matchers.notNullValue
 import org.junit.Before
@@ -38,6 +31,7 @@ import java.util.concurrent.TimeUnit
  *
  * [ensureActivityIsPresent] is check [mActivity] is [LoginActivity]
  * [ensureButtonIsPresent] is check Button is AppcompatButton, check [isDisplayed], check text == "LOGIN" and click
+ * [flowLogin] is automation UI test
  *
  * */
 
