@@ -108,8 +108,7 @@ dependencies {
 
     testImplementation deps.mockito.core
     androidTestImplementation deps.mockito.android
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.1'
+    testImplementation deps.kotlin.coroutines_test
     testImplementation deps.arch_core.testing
-//    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
 
 }

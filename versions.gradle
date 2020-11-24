@@ -61,6 +61,7 @@ versions.firebase="17.2.0"
 versions.crashlytics="2.10.1"
 versions.permission = "3.0.0"
 versions.anko = "0.10.8"
+versions.coroutines_test = "1.4.1"
 ext.versions = versions
 
 def deps = [:]
@@ -144,7 +145,7 @@ kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
 kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
 kotlin.allopen = "org.jetbrains.kotlin:kotlin-allopen:$versions.kotlin"
-
+kotlin.coroutines_test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutines_test"
 deps.kotlin = kotlin
 
 deps.paging_ktx = "androidx.paging:paging-runtime-ktx:$versions.paging"
