@@ -17,6 +17,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import com.sg.base.R
 import com.sg.base.adapter.MessagePagedAdapter
+import com.sg.base.util.RecyclerViewMatcher
 import com.sg.core.CoreApplication
 import org.hamcrest.Matchers
 import org.junit.Before
@@ -84,10 +85,29 @@ class MainActivityTest {
         )
     }
 
+    private fun ensureItemRecyclerViewIsPresent() {
+        val mActivity: MainActivity = mActivityRule.activity
+        val rvMessages: RecyclerView = mActivity.findViewById(R.id.rvMessage)
+        val mergeAdapter: MergeAdapter = rvMessages.adapter as MergeAdapter
+        ViewMatchers.assertThat(
+            "Adapter Paging Failure",
+            mergeAdapter.adapters[0],
+            Matchers.instanceOf(MessagePagedAdapter::class.java)
+        )
+        val messageAdapter: MessagePagedAdapter = mergeAdapter.adapters[0] as MessagePagedAdapter
+        Espresso.onView(RecyclerViewMatcher(R.id.rvMessage).atPosition(0, R.id.tvId)).check(
+            ViewAssertions.matches(
+                ViewMatchers.withText(messageAdapter.currentList?.get(0)?.id)
+            )
+        )
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    }
+
     @Test
     fun flowMain() {
         ensureTextIsPresent()
         ensureRecyclerViewIsPresent()
+        ensureItemRecyclerViewIsPresent()
     }
 
 }
