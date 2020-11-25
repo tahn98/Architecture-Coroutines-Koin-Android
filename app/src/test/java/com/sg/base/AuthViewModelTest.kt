@@ -63,6 +63,7 @@ class AuthViewModelTest {
 
     @Test
     fun login() {
+
         ViewMatchers.assertThat(
             "Text Failure",
             repoData?.value,
@@ -70,7 +71,7 @@ class AuthViewModelTest {
         )
         authViewModel.loginLiveData.value = (repoData?.value as Result.Success).data
 
-        verify(observer).onChanged(user)
+        verify(observer).onChanged(User(email = "abc@gmail.com"))
     }
 
 }

@@ -57,7 +57,7 @@ class MainActivityTest {
         ViewMatchers.assertThat(
             "Text User Name Failure",
             (tvTitle as AppCompatTextView).text,
-            Matchers.equalTo(tvTitle.text)
+            Matchers.equalTo(mApplication.getUser()?.email)
         )
     }
 
