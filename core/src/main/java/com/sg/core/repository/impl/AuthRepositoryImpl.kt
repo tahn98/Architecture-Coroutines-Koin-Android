@@ -15,8 +15,9 @@ import com.sg.core.repository.AuthRepository
 import com.sg.core.param.LoginParam
 import com.sg.core.vo.Listing
 import retrofit2.Response
+import javax.inject.Inject
 
-class AuthRepositoryImpl(val api: ApiService, val userDao: UserDao, val messageDao: MessageDao) :
+class AuthRepositoryImpl @Inject constructor(val api: ApiService, val userDao: UserDao, val messageDao: MessageDao) :
     AuthRepository {
 
     override suspend fun login(param: LoginParam): LiveData<Result<User>> {

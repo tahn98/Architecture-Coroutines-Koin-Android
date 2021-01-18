@@ -1,20 +1,23 @@
 package com.sg.base.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedList
+import com.sg.core.di.RepositoryModule
 import com.sg.core.model.Message
 import com.sg.core.model.Result
 import com.sg.core.model.User
 import com.sg.core.param.LoginParam
 import com.sg.core.repository.AuthRepository
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AuthViewModel @ViewModelInject constructor(
-    private val repository: AuthRepository
-) : ViewModel() {
+class AuthViewModel @Inject @ViewModelInject constructor(
+  @RepositoryModule private val repository: AuthRepository
+) : ViewModel(), LifecycleObserver {
 
     val loginLiveData = MediatorLiveData<User>()
     val messagesLiveData = MediatorLiveData<PagedList<Message>>()

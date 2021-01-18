@@ -22,7 +22,7 @@ open class CoreApplication : Application() {
 
 //    val db : AppDatabase by inject()
 
-    @Inject lateinit var db :AppDatabase
+//    @Inject lateinit var db :AppDatabase
 
     companion object {
         lateinit var instance: CoreApplication

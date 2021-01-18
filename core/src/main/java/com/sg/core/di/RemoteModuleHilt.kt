@@ -28,12 +28,12 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 object RemoteModuleHilt {
 
-    @Qualifier
-    @Retention(AnnotationRetention.RUNTIME)
-    annotation class RemoteDataSource
+//    @Qualifier
+//    @Retention(AnnotationRetention.BINARY)
+//    annotation class RemoteDataSource
 
     @Singleton
-    @RemoteDataSource
+//    @RemoteDataSource
     @Provides
     fun provideApiService(): ApiService = createService(createOkHttpClient())
 

@@ -4,13 +4,16 @@ import android.content.Context
 import android.database.Cursor
 import android.util.Log
 import com.sg.core.CoreApplication
+import com.sg.core.data.local.AppDatabase
 import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
+import javax.inject.Inject
 
 class DatabaseUtil {
 
-    private val db = CoreApplication.instance.db
+    @Inject
+    lateinit var db: AppDatabase
 
     fun exportDB(context: Context, tableName: String?) {
         val exportDir = File(context.getExternalFilesDir(null), "")

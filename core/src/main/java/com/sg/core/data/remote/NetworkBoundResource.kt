@@ -33,7 +33,7 @@ constructor(private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
     private val result = MutableLiveData<Result<ResultType>>()
 
     /**
-     *  Init this abstract class [build].
+     *  Init this abstract class [build]. This's Builder Pattern
      */
     fun build(): NetworkBoundResource<RequestType, ResultType> {
 

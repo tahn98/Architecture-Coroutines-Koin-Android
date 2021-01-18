@@ -26,9 +26,9 @@ object LocalModuleHilt {
 
     const val PREFS_FILENAME = "com.sg.covid"
 
-    @Qualifier
-    @Retention(AnnotationRetention.RUNTIME)
-    annotation class LocalDataSource
+//    @Qualifier
+//    @Retention(AnnotationRetention.BINARY)
+//    annotation class LocalDataSource
 
     @Singleton
     @Provides
@@ -45,15 +45,16 @@ object LocalModuleHilt {
         return PrefUtil(context, sharedPreferences, gSon)
     }
 
+    /** Local Service provider */
     @Singleton
-    @LocalDataSource
+//    @LocalDataSource
     @Provides
     fun provideUserDao(database: AppDatabase): UserDao {
         return database.userDao()
     }
 
     @Singleton
-    @LocalDataSource
+//    @LocalDataSource
     @Provides
     fun provideMessageDao(database: AppDatabase): MessageDao {
         return database.messageDao()
