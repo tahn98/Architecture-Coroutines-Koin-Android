@@ -20,7 +20,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)
-abstract class RepositoryModuleHilt {
+object RepositoryModuleHilt {
 
 //
 //    @Singleton
@@ -35,8 +35,8 @@ abstract class RepositoryModuleHilt {
 //    }
 
     @AnoRepo
-    @ActivityScoped
-    @Binds
-    abstract fun bindAuthRepo(impl: AuthRepositoryImpl): AuthRepository
+    @Provides
+    fun bindAuthRepo(api: ApiService, userDao: UserDao, messageDao: MessageDao): AuthRepository =
+        AuthRepositoryImpl(api, userDao, messageDao)
 
 }

@@ -16,7 +16,9 @@ import com.sg.core.param.LoginParam
 import com.sg.core.vo.Listing
 import retrofit2.Response
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class AuthRepositoryImpl @Inject constructor(val api: ApiService, val userDao: UserDao, val messageDao: MessageDao) :
     AuthRepository {
 

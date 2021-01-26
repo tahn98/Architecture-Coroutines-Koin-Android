@@ -3,5 +3,5 @@ package com.sg.core.di
 import javax.inject.Qualifier
 
 @Qualifier
-@Retention(AnnotationRetention.RUNTIME)
+@Retention(AnnotationRetention.BINARY)
 annotation class AnoRepo
