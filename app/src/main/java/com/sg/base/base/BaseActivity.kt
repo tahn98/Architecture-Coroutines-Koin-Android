@@ -1,8 +1,10 @@
 package com.sg.base.base
 
 import android.app.Activity
+import android.os.Build
 import android.os.Bundle
 import android.view.Window
+import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
@@ -26,9 +28,14 @@ abstract class BaseActivity<ViewBinding : ViewDataBinding> : AppCompatActivity()
         super.onCreate(savedInstanceState)
 //        AppEvent.addPopupEventListener(this)
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
         viewBinding = DataBindingUtil.setContentView(this, layoutId)
         viewBinding.lifecycleOwner = this
         viewBinding.root.setAutoHideKeyboard(this)

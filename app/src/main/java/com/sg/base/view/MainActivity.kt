@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
-import coil.api.load
+import coil.load
 import com.sg.base.R
 import com.sg.base.adapter.MessagePagedAdapter
 import com.sg.base.base.BaseActivity
@@ -108,7 +108,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             Toast.makeText(this, it.email, Toast.LENGTH_SHORT).show()
             authViewModel.messagePaging()
 
-            DatabaseUtil().exportDB(this, "User")
+//            DatabaseUtil().exportDB(this, "User")
 //            authViewModel.messagePagingDB()
         })
 
