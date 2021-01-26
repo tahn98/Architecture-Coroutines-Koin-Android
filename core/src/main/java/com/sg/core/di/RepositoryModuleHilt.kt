@@ -18,9 +18,6 @@ import javax.inject.Singleton
  * The binding for TasksRepository is on its own module so that we can replace it easily in tests.
  */
 
-@Qualifier
-annotation class RepositoryModule
-
 @Module
 @InstallIn(ApplicationComponent::class)
 abstract class RepositoryModuleHilt {
@@ -37,7 +34,7 @@ abstract class RepositoryModuleHilt {
 //        return AuthRepositoryImpl(api, useDao, messageDao)
 //    }
 
-    @RepositoryModule
+    @AnoRepo
     @ActivityScoped
     @Binds
     abstract fun bindAuthRepo(impl: AuthRepositoryImpl): AuthRepository
