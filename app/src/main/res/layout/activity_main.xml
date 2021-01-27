@@ -9,7 +9,7 @@
 
         <variable
             name="data"
-            type="com.sg.core.model.User" />
+            type="com.sg.core.domain.User" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

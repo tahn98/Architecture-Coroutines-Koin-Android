@@ -4,8 +4,8 @@ import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import com.sg.core.model.ListResponse
-import com.sg.core.model.Result
+import com.sg.core.domain.response.ListResponse
+import com.sg.core.domain.response.Result
 import retrofit2.Response
 
 abstract class BaseDataSourceFactory<I, O>(val status: MutableLiveData<Result<O>>) :

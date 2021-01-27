@@ -1,4 +1,4 @@
-package com.sg.core.model
+package com.sg.core.domain.response
 
 data class MetaData(
     val total_count: Int? = null,

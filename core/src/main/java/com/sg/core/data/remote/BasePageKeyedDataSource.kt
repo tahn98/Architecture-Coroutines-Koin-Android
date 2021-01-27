@@ -8,9 +8,9 @@ import androidx.paging.PageKeyedDataSource
 import com.google.gson.Gson
 import com.sg.core.CoreApplication
 import com.sg.core.util.AppEvent
-import com.sg.core.model.ObjectResponse
-import com.sg.core.model.ListResponse
-import com.sg.core.model.Result
+import com.sg.core.domain.response.ObjectResponse
+import com.sg.core.domain.response.ListResponse
+import com.sg.core.domain.response.Result
 import kotlinx.coroutines.*
 import retrofit2.Response
 import kotlin.coroutines.CoroutineContext

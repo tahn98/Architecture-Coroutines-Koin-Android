@@ -1,4 +1,4 @@
-package com.sg.core.model
+package com.sg.core.domain
 
 import android.os.Parcelable
 import androidx.room.Entity

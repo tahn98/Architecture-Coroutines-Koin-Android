@@ -7,8 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sg.base.R
 import com.sg.base.databinding.ItemLoadStateBinding
-import com.sg.core.model.Result
-import com.sg.core.vo.ItemViewModel
+import com.sg.core.domain.response.Result
 
 class LoadStateAdapter(private val retry: (() -> Unit)? = null) :
     RecyclerView.Adapter<LoadStateAdapter.LoadStateViewHolder>() {

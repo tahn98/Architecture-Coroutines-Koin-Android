@@ -1,11 +1,11 @@
 package com.sg.core.repository
 
 import androidx.lifecycle.LiveData
-import com.sg.core.model.Message
-import com.sg.core.model.Result
-import com.sg.core.model.User
-import com.sg.core.param.LoginParam
-import com.sg.core.vo.Listing
+import com.sg.core.domain.Message
+import com.sg.core.domain.response.Result
+import com.sg.core.domain.User
+import com.sg.core.domain.param.LoginParam
+import com.sg.core.domain.vo.Listing
 
 interface AuthRepository {
 

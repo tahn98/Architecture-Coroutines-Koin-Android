@@ -6,13 +6,13 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
-import com.sg.core.model.ObjectResponse
+import com.sg.core.domain.response.ObjectResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import com.sg.core.model.Result
+import com.sg.core.domain.response.Result
 
 /**
  * Constructs [NetworkBoundResource]

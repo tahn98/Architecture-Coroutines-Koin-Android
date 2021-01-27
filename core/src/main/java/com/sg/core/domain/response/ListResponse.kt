@@ -1,4 +1,4 @@
-package com.sg.core.model
+package com.sg.core.domain.response
 
 import com.google.gson.annotations.SerializedName
 

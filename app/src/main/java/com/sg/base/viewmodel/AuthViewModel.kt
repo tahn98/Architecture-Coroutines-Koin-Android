@@ -4,10 +4,10 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedList
-import com.sg.core.model.Message
-import com.sg.core.model.Result
-import com.sg.core.model.User
-import com.sg.core.param.LoginParam
+import com.sg.core.domain.Message
+import com.sg.core.domain.response.Result
+import com.sg.core.domain.User
+import com.sg.core.domain.param.LoginParam
 import com.sg.core.repository.AuthRepository
 import kotlinx.coroutines.launch
 

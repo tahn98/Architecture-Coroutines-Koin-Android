@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import com.google.gson.Gson
-import com.sg.core.model.User
+import com.sg.core.domain.User
 
 //KEY WORD
 const val USER_PROFILE = "USER"

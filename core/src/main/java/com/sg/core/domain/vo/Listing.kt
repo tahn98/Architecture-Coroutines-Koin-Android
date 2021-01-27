@@ -1,8 +1,8 @@
-package com.sg.core.vo
+package com.sg.core.domain.vo
 
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
-import com.sg.core.model.Result
+import com.sg.core.domain.response.Result
 
 data class Listing<T>(
     // the LiveData of paged lists for the UI to observe

@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import com.sg.core.model.Result
+import com.sg.core.domain.response.Result
 
 abstract class LocalBoundResource<RequestType, ResultType>
 constructor(private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {

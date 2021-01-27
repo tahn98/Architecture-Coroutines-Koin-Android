@@ -1,4 +1,4 @@
-package com.sg.core.repository.impl
+package com.sg.core.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,10 +10,12 @@ import com.sg.core.data.local.UserDao
 import com.sg.core.data.remote.BaseDataSourceFactory
 import com.sg.core.data.remote.BaseSource
 import com.sg.core.data.remote.NetworkBoundResource
-import com.sg.core.model.*
-import com.sg.core.repository.AuthRepository
-import com.sg.core.param.LoginParam
-import com.sg.core.vo.Listing
+import com.sg.core.domain.*
+import com.sg.core.domain.param.LoginParam
+import com.sg.core.domain.response.ListResponse
+import com.sg.core.domain.response.ObjectResponse
+import com.sg.core.domain.response.Result
+import com.sg.core.domain.vo.Listing
 import retrofit2.Response
 
 class AuthRepositoryImpl(val api: ApiService, val userDao: UserDao, val messageDao: MessageDao) :

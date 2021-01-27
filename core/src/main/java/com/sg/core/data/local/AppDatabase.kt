@@ -8,9 +8,9 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.sg.core.data.local.AppDatabase.Companion.DB_VERSION
-import com.sg.core.model.Message
-import com.sg.core.model.TokenConverter
-import com.sg.core.model.User
+import com.sg.core.domain.Message
+import com.sg.core.domain.TokenConverter
+import com.sg.core.domain.User
 
 @Database(entities = [User::class, Message::class], version = DB_VERSION, exportSchema = false)
 @TypeConverters(TokenConverter::class)

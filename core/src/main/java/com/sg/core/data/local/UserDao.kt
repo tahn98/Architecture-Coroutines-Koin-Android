@@ -1,11 +1,8 @@
 package com.sg.core.data.local
 
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.sg.core.model.User
-import com.sg.core.param.LoginParam
+import com.sg.core.domain.User
 
 @Dao
 interface UserDao : BaseDao<User> {

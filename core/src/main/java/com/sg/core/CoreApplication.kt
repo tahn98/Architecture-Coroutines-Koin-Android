@@ -6,7 +6,7 @@ import com.sg.core.di.localModule
 import com.sg.core.di.remoteModule
 import com.sg.core.di.repositoryModule
 import com.sg.core.di.roomModule
-import com.sg.core.model.User
+import com.sg.core.domain.User
 import com.sg.core.util.PrefUtil
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext

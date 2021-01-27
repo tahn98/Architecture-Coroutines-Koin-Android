@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
-import coil.load
 import com.sg.base.R
 import com.sg.base.adapter.MessagePagedAdapter
 import com.sg.base.base.BaseActivity
@@ -16,9 +15,8 @@ import com.sg.base.ext.hasReadStoragePermission
 import com.sg.base.ext.requestReadAndWriteStoragePermission
 import com.sg.base.viewmodel.AuthViewModel
 import com.sg.core.CoreApplication
-import com.sg.core.model.Result
-import com.sg.core.param.LoginParam
-import com.sg.core.util.DatabaseUtil
+import com.sg.core.domain.response.Result
+import com.sg.core.domain.param.LoginParam
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**

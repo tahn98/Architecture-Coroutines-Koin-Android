@@ -1,4 +1,4 @@
-package com.sg.core.model
+package com.sg.core.domain.response
 
 sealed class Result<out R> {
 

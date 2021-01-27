@@ -2,7 +2,7 @@ package com.sg.core.data.local
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.sg.core.model.Message
+import com.sg.core.domain.Message
 
 @Dao
 interface MessageDao : BaseDao<Message>{
