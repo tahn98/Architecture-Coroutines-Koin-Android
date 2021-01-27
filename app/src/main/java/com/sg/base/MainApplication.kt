@@ -1,11 +1,15 @@
 package com.sg.base
 
+import android.app.Application
 import androidx.lifecycle.LifecycleObserver
-import com.sg.core.CoreApplication
-import com.sg.base.di.appModules
+import com.sg.base.di.*
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 
-class MainApplication : CoreApplication(), LifecycleObserver {
+class MainApplication : Application(), LifecycleObserver {
+
 
     companion object {
         lateinit var instance: MainApplication
@@ -14,12 +18,27 @@ class MainApplication : CoreApplication(), LifecycleObserver {
 
     override fun onCreate() {
         super.onCreate()
+        startKoin {
+            androidLogger()
+            androidContext(this@MainApplication)
+            modules(getModule())
+        }
+
         instance = this
     }
 
-    fun getInstance() = instance
-
-    override fun addModules(): List<Module> {
-        return listOf(appModules)
+    private fun getModule(): List<Module> {
+        val moduleList = arrayListOf<Module>()
+        moduleList.addAll(
+            listOf(
+                remoteModule,
+                repositoryModule,
+                localModule,
+                roomModule,
+                viewModelModules
+            )
+        )
+        return moduleList
     }
+
 }

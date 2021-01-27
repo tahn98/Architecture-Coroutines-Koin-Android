@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
@@ -8,14 +8,11 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.sg.code_base"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "1.0.0"
 
-        vectorDrawables.useSupportLibrary = true
-        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -36,46 +33,51 @@ android {
         dataBinding true
     }
 
-    signingConfigs {
-        release {
-            storeFile file(RELEASE_DEV_FILE)
-            storePassword RELEASE_DEV_PASSWORD
-            keyAlias RELEASE_KEY_DEV_ALIAS
-            keyPassword RELEASE_DEV_PASSWORD
-        }
+    androidExtensions {
+        experimental = true
     }
 
     buildTypes {
         release {
-            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-
-    lintOptions {
-        disable('AllowBackup', 'GoogleAppIndexingWarning', 'MissingApplicationIcon')
     }
 
     flavorDimensions "mode"
 
     productFlavors {
         staging {
+            buildConfigField "String", "SERVER_URL", '"http://string-api.vinova.sg/api/"'
         }
         prod {
+            buildConfigField "String", "SERVER_URL", '"http://string-api.vinova.sg/api/"'
         }
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':data')
-    implementation project(':domain')
-    implementation project(':presentation')
+    implementation project(":domain")
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
 //    compileOnly 'com.google.android.things:androidthings:1.0'
 
+    //retrofit and logging
+    api deps.retrofit.runtime
+    api deps.okhttp_logging_interceptor
+
+    // koin
+    api deps.koin.scope
+    api deps.koin.viewmodel
+
+    // coroutine
+    api deps.coroutine.core
+    api deps.coroutine.android
+
+    //stetho
+    api deps.stetho.common
+    api deps.stetho.okhttp
 }
