@@ -18,13 +18,12 @@ class MainApplication : Application(), LifecycleObserver {
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
         startKoin {
             androidLogger()
-            androidContext(this@MainApplication)
+            androidContext(instance)
             modules(getModule())
         }
-
-        instance = this
     }
 
     private fun getModule(): List<Module> {
@@ -35,7 +34,7 @@ class MainApplication : Application(), LifecycleObserver {
                 repositoryModule,
                 localModule,
                 roomModule,
-                viewModelModules
+                viewModelModule
             )
         )
         return moduleList

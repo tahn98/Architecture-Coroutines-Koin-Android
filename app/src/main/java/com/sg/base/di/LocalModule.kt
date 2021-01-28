@@ -6,7 +6,7 @@ import com.google.gson.Gson
 import com.sg.data.util.PrefUtil
 import org.koin.dsl.module
 
-const val PREFS_FILENAME = "com.sg.covid"
+const val PREFS_FILENAME = "com.roomBase"
 
 val localModule = module {
     single { Gson() }

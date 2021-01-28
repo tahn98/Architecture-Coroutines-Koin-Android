@@ -18,9 +18,15 @@ import com.sg.domain.common.Result
 import com.sg.domain.common.Listing
 import com.sg.domain.dao.MessageDao
 import com.sg.domain.dao.UserDao
+import com.sg.domain.repository.AuthRepository
 import retrofit2.Response
 
-class AuthRepositoryImpl(val api: ApiService, val userDao: UserDao, val messageDao: MessageDao, val prefUtil: PrefUtil) :
+class AuthRepositoryImpl(
+    val api: ApiService,
+    val userDao: UserDao,
+    val messageDao: MessageDao,
+    val prefUtil: PrefUtil
+) :
     AuthRepository {
 
     override suspend fun login(param: LoginParam): LiveData<Result<User>> {
