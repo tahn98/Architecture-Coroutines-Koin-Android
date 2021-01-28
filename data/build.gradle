@@ -76,4 +76,7 @@ dependencies {
     //stetho
     api deps.stetho.common
     api deps.stetho.okhttp
+
+    //room
+    kapt deps.room.compiler
 }

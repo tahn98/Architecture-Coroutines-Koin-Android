@@ -8,8 +8,7 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 
-class MainApplication : Application(), LifecycleObserver {
-
+class MainApplication : Application() {
 
     companion object {
         lateinit var instance: MainApplication
@@ -21,7 +20,7 @@ class MainApplication : Application(), LifecycleObserver {
         instance = this
         startKoin {
             androidLogger()
-            androidContext(instance)
+            androidContext(this@MainApplication)
             modules(getModule())
         }
     }

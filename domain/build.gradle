@@ -50,6 +50,7 @@ dependencies {
     // room
     api deps.room.ktx
     kapt deps.room.compiler
+    api deps.room.runtime
 
     //gson
     api deps.retrofit.gson
