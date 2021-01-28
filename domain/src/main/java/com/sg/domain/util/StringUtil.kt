@@ -1,4 +1,4 @@
-package com.sg.data.util
+package com.sg.domain.util
 
 import java.util.*
 import java.util.regex.Pattern

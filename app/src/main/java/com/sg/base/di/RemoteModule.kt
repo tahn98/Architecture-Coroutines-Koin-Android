@@ -1,11 +1,9 @@
 package com.sg.base.di
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
-import com.sg.base.MainApplication
 import com.sg.data.BuildConfig
 import com.sg.data.api.ApiService
-import com.sg.data.util.PrefUtil
-import com.sg.domain.common.NoInternetInterceptor
+import com.sg.domain.util.PrefUtil
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -38,9 +36,9 @@ fun createOkHttpClient(prefUtil: PrefUtil): OkHttpClient {
             override fun intercept(chain: Interceptor.Chain): Response {
                 var request = chain.request()
                 val builder = request.newBuilder()
-                val token = prefUtil.user?.access_token
+                val token = prefUtil.user?.token?.token
                 if (token != null) {
-//                    builder.header("Authorization", "Bearer $token")
+                    builder.header("X-Http-Token", "$token")
                 }
                 request = builder.build()
                 return chain.proceed(request)

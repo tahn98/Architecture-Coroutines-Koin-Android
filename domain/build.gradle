@@ -61,4 +61,5 @@ dependencies {
     api deps.koin.scope
     api deps.koin.viewmodel
     api deps.koin.ext
+    api deps.koin.compose
 }

@@ -1,4 +1,4 @@
-package com.sg.domain
+package com.sg.domain.entity
 
 import android.os.Parcelable
 import androidx.room.Entity
@@ -14,8 +14,7 @@ data class User(
     @PrimaryKey
     var id : Int = 0,
     var email: String? = "",
-    var access_token : String? = "",
-    var profilePhoto: String? = "",
+    var avatar: String? = "",
     @TypeConverters(TokenConverter::class)
     var token: Token? = Token()
 ) : Parcelable

@@ -2,7 +2,7 @@ package com.sg.domain.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.sg.domain.User
+import com.sg.domain.entity.User
 
 @Dao
 interface UserDao : BaseDao<User> {

@@ -1,7 +1,6 @@
 package com.sg.domain.common
 
-import android.app.Application
-import com.sg.data.util.PrefUtil
+import com.sg.domain.util.PrefUtil
 import com.sg.domain.util.AppEvent
 import okhttp3.Interceptor
 import okhttp3.Response

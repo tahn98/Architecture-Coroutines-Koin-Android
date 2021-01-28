@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
 import coil.load
-import com.sg.data.util.PrefUtil
+import com.sg.domain.util.PrefUtil
 import com.sg.presentation.adapter.MessagePagedAdapter
 import com.sg.presentation.base.BaseActivity
 import com.sg.presentation.base.LoadStateAdapter

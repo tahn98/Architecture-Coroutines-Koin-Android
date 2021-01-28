@@ -48,10 +48,10 @@ android {
 
     productFlavors {
         staging {
-            buildConfigField "String", "SERVER_URL", '"http://string-api.vinova.sg/api/"'
+            buildConfigField "String", "SERVER_URL", '"https://khind.vinova.sg/"'
         }
         prod {
-            buildConfigField "String", "SERVER_URL", '"http://string-api.vinova.sg/api/"'
+            buildConfigField "String", "SERVER_URL", '"https://khind.vinova.sg/"'
         }
     }
 }
@@ -68,10 +68,6 @@ dependencies {
     //retrofit and logging
     api deps.retrofit.runtime
     api deps.okhttp_logging_interceptor
-
-    // koin
-    api deps.koin.scope
-    api deps.koin.viewmodel
 
     // coroutine
     api deps.coroutine.core

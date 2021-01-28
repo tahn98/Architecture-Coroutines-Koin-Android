@@ -1,4 +1,4 @@
-package com.sg.base.ext
+package com.sg.presentation.ext
 
 import android.content.Intent
 import android.os.Bundle

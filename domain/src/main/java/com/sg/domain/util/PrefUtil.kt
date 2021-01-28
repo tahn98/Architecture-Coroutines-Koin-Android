@@ -1,11 +1,11 @@
-package com.sg.data.util
+package com.sg.domain.util
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import com.google.gson.Gson
-import com.sg.domain.User
+import com.sg.domain.entity.User
 
 //KEY WORD
 const val USER_PROFILE = "USER"

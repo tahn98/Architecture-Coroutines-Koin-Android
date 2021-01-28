@@ -8,8 +8,7 @@ import com.sg.data.datasource.local.LocalBoundResource
 import com.sg.data.datasource.remote.BaseDataSourceFactory
 import com.sg.data.datasource.remote.BaseSource
 import com.sg.data.datasource.remote.NetworkBoundResource
-import com.sg.data.util.PrefUtil
-import com.sg.domain.*
+import com.sg.domain.util.PrefUtil
 import com.sg.domain.entity.Message
 import com.sg.domain.param.LoginParam
 import com.sg.domain.common.ListResponse
@@ -18,6 +17,7 @@ import com.sg.domain.common.Result
 import com.sg.domain.common.Listing
 import com.sg.domain.dao.MessageDao
 import com.sg.domain.dao.UserDao
+import com.sg.domain.entity.User
 import com.sg.domain.repository.AuthRepository
 import retrofit2.Response
 

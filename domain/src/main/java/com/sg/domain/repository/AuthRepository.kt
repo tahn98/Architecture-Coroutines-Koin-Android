@@ -1,7 +1,7 @@
 package com.sg.domain.repository
 
 import androidx.lifecycle.LiveData
-import com.sg.domain.User
+import com.sg.domain.entity.User
 import com.sg.domain.common.Listing
 import com.sg.domain.common.Result
 import com.sg.domain.entity.Message

@@ -30,10 +30,9 @@ class MainApplication : Application(), LifecycleObserver {
         val moduleList = arrayListOf<Module>()
         moduleList.addAll(
             listOf(
+                localModule,
                 remoteModule,
                 repositoryModule,
-                localModule,
-                roomModule,
                 viewModelModule
             )
         )

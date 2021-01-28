@@ -9,8 +9,8 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.sg.data.datasource.local.AppDatabase.Companion.DB_VERSION
 import com.sg.domain.entity.Message
-import com.sg.domain.TokenConverter
-import com.sg.domain.User
+import com.sg.domain.entity.TokenConverter
+import com.sg.domain.entity.User
 import com.sg.domain.dao.MessageDao
 import com.sg.domain.dao.UserDao
 
@@ -20,7 +20,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         const val DB_VERSION = 1
-        const val DB_NAME = "Covid.DB"
+        private const val DB_NAME = "RoomBase.DB"
 
         @Volatile
         private var INSTANCE: AppDatabase? = null
