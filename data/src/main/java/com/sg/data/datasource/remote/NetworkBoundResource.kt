@@ -83,14 +83,9 @@ constructor(private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
                 200, 201, 204 -> {
                     body?.let {
                         val message = ""
-                        if (it == null) {
-                            setValue(Result.Success(it, message))
-                        } else {
-                            saveCallResult(processResponse(it))
-                            val result = loadFromDb() ?: processResponse(it)
-                            setValue(Result.Success(result))
-                        }
-
+                        saveCallResult(processResponse(it))
+                        val result = loadFromDb() ?: processResponse(it)
+                        setValue(Result.Success(result))
                     }
                     if (body == null) {
                         setValue(Result.Success(null, apiResponse.message()))
