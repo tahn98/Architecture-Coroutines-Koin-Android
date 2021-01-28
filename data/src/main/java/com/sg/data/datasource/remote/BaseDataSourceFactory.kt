@@ -23,7 +23,7 @@ abstract class BaseDataSourceFactory<I, O>(val status: MutableLiveData<Result<O>
                 firstLoad: Boolean
             ): List<O> = handleXResponse(items, firstLoad)
 
-            override fun isNetworkConnected(): Boolean = isNetworkConnected()
+            override fun isNetworkConnected(): Boolean = this@BaseDataSourceFactory.isNetworkConnected()
         }
 
         sourceLiveData.postValue(source)

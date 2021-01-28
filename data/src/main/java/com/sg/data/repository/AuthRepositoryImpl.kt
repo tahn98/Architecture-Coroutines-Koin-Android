@@ -47,12 +47,12 @@ class AuthRepositoryImpl(
         return object : LocalBoundResource<User, User>() {
 
             override suspend fun loadFromDb(): User? {
-                return userDao.findUser(param.username)
+                return userDao.findUser(param.email)
             }
 
             override suspend fun processResponse(response: User?): User? {
-                val user = User(email = param.username)
-                userDao.insert(User(email = param.username))
+                val user = User(email = param.email)
+                userDao.insert(User(email = param.email))
                 return user
             }
 

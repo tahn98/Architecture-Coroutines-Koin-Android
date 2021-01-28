@@ -79,8 +79,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         authViewModel.login(
             LoginParam(
-                "jason@vinova.sg",
-                "123123",
+                "tahn@vinova.sg",
+                "vinova123",
                 "dGKlJJU1lCc:APA91bGZTz25rKtcb5WobysyPQSUp0Bfp4w1hblFjgWQeGdCEZwgFmRTCTQX9vhDk2WazWcvwpOHn8MV4NyTjrgE5vFEraxP5GbAMOnqYmo6FyVGy924yS98pEYSJXBJZ_5g_56nIFuC"
             )
         )

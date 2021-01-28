@@ -12,7 +12,8 @@ import kotlinx.android.parcel.Parcelize
 @Entity
 data class User(
     @PrimaryKey
-    var id : Int = 0,
+    var key: Int = 0,
+    var id: String? = "",
     var email: String? = "",
     var avatar: String? = "",
     @TypeConverters(TokenConverter::class)

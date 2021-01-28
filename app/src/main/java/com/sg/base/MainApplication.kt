@@ -2,6 +2,7 @@ package com.sg.base
 
 import android.app.Application
 import androidx.lifecycle.LifecycleObserver
+import com.facebook.stetho.Stetho
 import com.sg.base.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -18,6 +19,7 @@ class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        Stetho.initializeWithDefaults(this);
         startKoin {
             androidLogger()
             androidContext(this@MainApplication)
