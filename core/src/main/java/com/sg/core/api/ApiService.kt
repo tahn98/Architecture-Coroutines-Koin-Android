@@ -14,7 +14,7 @@ interface ApiService {
     suspend fun getMessage(
         @Query("keyword") keyword: String = "",
         @Query("page") page: Int = 1,
-        @Query("current_per_page") perPage: Int = 15
+        @Query("current_per_page") perPage: Int = 25
     ): Response<ListResponse<Message>>
 
     @GET("movie/now_playing")

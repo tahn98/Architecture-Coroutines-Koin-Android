@@ -1,0 +1,18 @@
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ProjectInspectionProfilesVisibleTreeState\">\n    <entry key=\"Project Default\">\n      <profile-state>\n        <expanded-state>\n          <State />\n          <State>\n            <id>Android</id>\n          </State>\n          <State>\n            <id>ComplianceLintAndroid</id>\n          </State>\n          <State>\n            <id>CorrectnessLintAndroid</id>\n          </State>\n          <State>\n            <id>Kotlin</id>\n          </State>\n          <State>\n            <id>LintAndroid</id>\n          </State>\n          <State>\n            <id>PerformanceLintAndroid</id>\n          </State>\n          <State>\n            <id>Style issuesKotlin</id>\n          </State>\n          <State>\n            <id>UsabilityLintAndroid</id>\n          </State>\n        </expanded-state>\n      </profile-state>\n    </entry>\n  </component>\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"false\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\n  </component>\n  <component name=\"ProjectType\">\n    <option name=\"id\" value=\"Android\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision 1e2bf12fd752a9bebc3beeeda954513cda9a48f8)
++++ .idea/misc.xml	(date 1620035772000)
+@@ -33,7 +33,7 @@
+       </profile-state>
+     </entry>
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">

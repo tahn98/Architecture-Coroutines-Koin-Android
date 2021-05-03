@@ -9,10 +9,11 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.sg.core.data.local.AppDatabase.Companion.DB_VERSION
 import com.sg.core.model.Message
+import com.sg.core.model.RemoteKeys
 import com.sg.core.model.TokenConverter
 import com.sg.core.model.User
 
-@Database(entities = [User::class, Message::class], version = DB_VERSION, exportSchema = false)
+@Database(entities = [User::class, Message::class, RemoteKeys::class], version = DB_VERSION, exportSchema = false)
 @TypeConverters(TokenConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -40,4 +41,5 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
     abstract fun messageDao(): MessageDao
+    abstract fun remoteKeysDao() : RemoteKeysDao
 }
