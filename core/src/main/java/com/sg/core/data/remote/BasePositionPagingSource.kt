@@ -1,3 +1,5 @@
+package com.sg.core.data.remote
+
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

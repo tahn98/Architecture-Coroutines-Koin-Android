@@ -1,12 +1,8 @@
 package com.sg.core.repository.impl
 
-import BasePositionPagingSource
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import com.sg.core.data.remote.BasePositionPagingSource
 import androidx.paging.*
 import com.sg.core.api.ApiService
-import com.sg.core.data.local.LocalBoundResource
 import com.sg.core.data.local.MessageDao
 import com.sg.core.data.local.RemoteKeysDao
 import com.sg.core.data.local.UserDao
@@ -15,13 +11,7 @@ import com.sg.core.data.remote.NetworkBoundResource
 import com.sg.core.model.*
 import com.sg.core.repository.AuthRepository
 import com.sg.core.param.LoginParam
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class AuthRepositoryImpl(
@@ -102,7 +92,7 @@ class AuthRepositoryImpl(
 //        return Pager(
 //            config = PagingConfig(pageSize = 25),
 //            pagingSourceFactory = pagingSourceFactory,
-//            remoteMediator = object : BasePositionPagingSource<Message>() {
+//            remoteMediator = object : com.sg.core.data.remote.BasePositionPagingSource<Message>() {
 //                override suspend fun createCall(page: Int): Response<ListResponse<Message>> {
 //                    return api.getMessage(keyword = "", page = page)
 //                }
@@ -152,7 +142,7 @@ class AuthRepositoryImpl(
 //                }
 //            }
 //        ).flow
-//        BasePositionPagingSource
+//        com.sg.core.data.remote.BasePositionPagingSource
 //    }
 
     override suspend fun messageDB(): Flow<PagingData<Message>> = Pager(PagingConfig(25)) {
