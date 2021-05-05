@@ -89,7 +89,7 @@ class AuthViewModel(private val repository: AuthRepository, private val savedSta
         clearListCh.consumeAsFlow().map { PagingData.empty<Message>() },
         savedStateHandle.getLiveData<String>(KEY_SUBREDDIT)
             .asFlow()
-            .flatMapLatest { repository.message(it) }).flattenMerge(2).cachedIn(viewModelScope)
+            .flatMapLatest { repository.messageDB() }).flattenMerge(2).cachedIn(viewModelScope)
 
     private fun shouldShowSubreddit(
         keyword: String

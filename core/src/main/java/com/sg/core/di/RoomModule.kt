@@ -7,4 +7,5 @@ val roomModule = module {
     single { AppDatabase.getInstance(get()) }
     single { get<AppDatabase>().userDao() }
     single { get<AppDatabase>().messageDao()}
+    single { get<AppDatabase>().remoteKeysDao()}
 }

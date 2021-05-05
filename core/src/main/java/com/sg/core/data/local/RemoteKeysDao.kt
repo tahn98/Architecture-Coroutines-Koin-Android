@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.sg.core.model.RemoteKeys
 
 @Dao
-interface RemoteKeysDao {
+interface RemoteKeysDao : BaseDao<RemoteKeys> {
 
     @Query("SELECT * FROM RemoteKeys WHERE repoId = :id")
     suspend fun remoteKeysId(id: String): RemoteKeys?

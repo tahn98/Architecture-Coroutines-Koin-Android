@@ -21,5 +21,5 @@ interface AuthRepository {
 
     suspend fun movies(page: Int = 1):  Flow<PagingData<Movie>>
 
-//    suspend fun messageDB() : Flow<PagingData<Message>>
+    suspend fun messageDB() : Flow<PagingData<Message>>
 }

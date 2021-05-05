@@ -8,8 +8,7 @@ interface BaseDao<T> {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vararg obj: T?)
 
-//    @Query("DELETE FROM T")
-//    suspend fun clearRemoteKeys()
-    @Delete
-    suspend fun clear(entity: T?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(remoteKey: List<T>)
+
 }
