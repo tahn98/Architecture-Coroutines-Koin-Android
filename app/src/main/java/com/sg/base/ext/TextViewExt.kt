@@ -1,4 +1,4 @@
-package com.sg.vivastory.ext
+package com.sg.base.ext
 
 import android.graphics.Color
 import android.text.SpannableString
@@ -9,7 +9,6 @@ import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
-import kotlinx.android.synthetic.main.activity_main.view.*
 
 //fun AppCompatTextView.makeLinks(
 //    vararg links: Triple<String, View.OnClickListener, String>,

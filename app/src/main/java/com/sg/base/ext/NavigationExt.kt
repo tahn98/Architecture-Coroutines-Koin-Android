@@ -72,10 +72,10 @@ fun BottomNavigationView.setupWithNavController(
     var isOnFirstFragment = selectedItemTag == firstFragmentTag
 
     // When a navigation item is selected
-    setOnNavigationItemSelectedListener { item ->
+    setOnItemReselectedListener { item ->
         // Don't do anything if the state is state has already been saved.
         if (fragmentManager.isStateSaved) {
-            false
+            return@setOnItemReselectedListener
         } else {
             val newlySelectedItemTag = graphIdToTagMap[item.itemId]
             if (selectedItemTag != newlySelectedItemTag) {
@@ -109,9 +109,9 @@ fun BottomNavigationView.setupWithNavController(
                 selectedItemTag = newlySelectedItemTag
                 isOnFirstFragment = selectedItemTag == firstFragmentTag
                 selectedNavController.value = selectedFragment.navController
-                true
+                return@setOnItemReselectedListener
             } else {
-                false
+                return@setOnItemReselectedListener
             }
         }
     }
@@ -168,14 +168,14 @@ private fun BottomNavigationView.setupItemReselected(
     graphIdToTagMap: SparseArray<String>,
     fragmentManager: FragmentManager
 ) {
-    setOnNavigationItemReselectedListener { item ->
+    setOnItemReselectedListener { item ->
         val newlySelectedItemTag = graphIdToTagMap[item.itemId]
         val selectedFragment = fragmentManager.findFragmentByTag(newlySelectedItemTag)
                 as? NavHostFragment
         val navController = selectedFragment?.navController
         // Pop the back stack to the start destination of the current navController graph
         navController?.popBackStack(
-            navController.graph.startDestination, false
+            navController.graph.startDestinationId, false
         )
     }
 }

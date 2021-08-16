@@ -14,13 +14,14 @@ import com.sg.core.repository.AuthRepository
 import com.sg.core.util.collectValue
 import com.sg.core.util.ui
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class AuthViewModel(private val repository: AuthRepository, private val savedStateHandle : SavedStateHandle) : ViewModel() {
 
-    val loginLiveData = MutableLiveData<User>()
+    val loginLiveData = MutableLiveData<User?>()
     val messagesLiveData = MediatorLiveData<PagingData<Message>>()
 //    val movieLiveData = MediatorLiveData<PagingData<Movie>>()
 

@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 //import androidx.recyclerview.widget.MergeAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
 import com.sg.base.MainApplication
 import com.sg.base.R
 import com.sg.base.adapter.MessagePagingAdapter
