@@ -5,7 +5,7 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.MergeAdapter
+//import androidx.recyclerview.widget.MergeAdapter
 import coil.load
 import com.sg.base.R
 import com.sg.base.adapter.MessagePagedAdapter
@@ -41,7 +41,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private var adapter: MessagePagedAdapter? = null
     private var loadStateAdapter: LoadStateAdapter? = null
-    private var mergeAdapter: MergeAdapter? = null
+//    private var mergeAdapter: MergeAdapter? = null
 
 
     override val layoutId: Int
@@ -55,13 +55,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         adapter = MessagePagedAdapter()
         loadStateAdapter = LoadStateAdapter()
-        mergeAdapter = MergeAdapter(adapter, loadStateAdapter)
+//        mergeAdapter = MergeAdapter(adapter, loadStateAdapter)
 
 //        viewBinding.rvMessage.layoutManager =
 //            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val gridLayoutManager = GridLayoutManager(this, 2)
         viewBinding.rvMessage.layoutManager = gridLayoutManager
-        viewBinding.rvMessage.adapter = mergeAdapter
+//        viewBinding.rvMessage.adapter = mergeAdapter
         gridLayoutManager.spanSizeLookup = object :
             GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {

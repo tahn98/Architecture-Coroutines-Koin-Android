@@ -19,6 +19,7 @@
 
         <activity
             android:name="com.sg.base.view.MainActivity"
+            android:exported="true"
             android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
